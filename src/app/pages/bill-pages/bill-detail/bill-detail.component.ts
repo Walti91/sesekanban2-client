@@ -13,7 +13,7 @@ import {BillDetail} from '../../../entities/bill-detail';
 export class BillDetailComponent implements OnInit, OnDestroy {
 
   private sub: Subscription;
-  private bill: BillDetail;
+  bill: BillDetail;
   private billId: number;
 
   constructor(private billService: BillService, private route: ActivatedRoute) { }

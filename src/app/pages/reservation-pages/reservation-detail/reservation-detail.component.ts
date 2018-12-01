@@ -17,8 +17,8 @@ import {RoomReservation} from '../../../entities/room-reservation';
 export class ReservationDetailComponent implements OnInit, OnDestroy {
 
   private comment = new FormControl('', [Validators.required]);
-  private FETCHEDCOMMENTS: Comment[];
-  private reservation: Reservation;
+  FETCHEDCOMMENTS: Comment[];
+  reservation: Reservation;
   private reservationId: number;
   private sub: Subscription;
 
