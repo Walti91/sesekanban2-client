@@ -3,12 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port $PORT",
+    "start": "node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "npm install -g @angular/cli"
+    "postinstall": "ng build --aot --prod"
   },
   "private": true,
   "dependencies": {
@@ -26,6 +26,10 @@
     "core-js": "^2.5.4",
     "rxjs": "~6.3.3",
     "zone.js": "~0.8.26",
+    "@angular/cli": "~7.0.5",
+    "@angular/compiler-cli": "~7.0.0"
+  },
+  "devDependencies": {
     "@angular-devkit/build-angular": "~0.10.0",
     "@angular/cli": "~7.0.5",
     "@angular/compiler-cli": "~7.0.0",
