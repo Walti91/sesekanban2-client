@@ -1,0 +1,44 @@
+<div *ngIf="bill">
+  <h2>Rechnung mit der Rechnungsnummer: {{bill.id}}</h2>
+  <table>
+    <tr>
+      <td><b>Von: </b></td>
+      <td>{{getMinStartDate(bill.reservations)}}</td>
+    </tr>
+    <tr>
+      <td><b>Bis: </b></td>
+      <td>{{getMaxEndDate(bill.reservations)}}</td>
+    </tr>
+    <tr>
+      <td><b>Kunden: </b></td>
+      <td><span *ngFor="let r of bill.reservations">{{r.customer.name}}, </span></td>
+    </tr>
+    <tr>
+      <td><b>Zimmer: </b></td>
+      <td><span *ngFor="let r of bill.reservations"><span *ngFor="let room of r.roomReservations">{{room.room.name}}, </span></span></td>
+    </tr>
+    <tr>
+      <td><b>Rabatt: </b></td>
+      <td>{{bill.reservations[0].customer.discount}}</td>
+    </tr>
+    <tr>
+      <td><b>Preis: </b></td>
+      <td>{{bill.amount}}</td>
+    </tr>
+    <tr>
+      <td><b>Bezahlt: </b></td>
+      <td><span *ngFor="let p of bill.payments">{{getDateTimeString(p.timestamp)}}, </span></td>
+    </tr>
+    <tr>
+      <td><b>Storniert: </b></td>
+      <td>{{bill.cancelled}}</td>
+    </tr>
+    <tr>
+      <td><b>Überfällig: </b></td>
+      <td><span *ngFor="let rem of bill.reminders">{{getDateTimeString(rem.timestamp)}}, </span></td>
+    </tr>
+  </table>
+  <button mat-raised-button color="accent" (click)="sendPaymentConfirmation()">Zahlungsbestätigung senden</button>
+</div>
+
+

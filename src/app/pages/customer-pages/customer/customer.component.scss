@@ -1,0 +1,36 @@
+.mat-cell:nth-child(1),
+mat-header-cell:nth-child(1) {
+  flex: 0 0 4%;
+}
+
+.mat-cell:nth-child(3),
+mat-header-cell:nth-child(3) {
+  flex: 0 0 6%;
+}
+
+.mat-cell:nth-child(4),
+mat-header-cell:nth-child(4) {
+  flex: 0 0 5%;
+}
+
+.mat-cell:nth-child(8),
+mat-header-cell:nth-child(8) {
+  flex: 0 0 4%;
+}
+
+::ng-deep .mat-line{
+  word-wrap: break-word !important;
+  white-space: pre-wrap !important;
+}
+
+::ng-deep  .mat-list .mat-list-item{
+  height:initial !important;
+}
+
+.fabBottomRight {
+  z-index: 99;
+  position : fixed;
+  align-self : flex-end;
+  top: 80px;
+  right: 20px;
+}

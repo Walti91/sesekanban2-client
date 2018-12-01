@@ -1,0 +1,44 @@
+<div>
+  <mat-form-field>
+    <input matInput placeholder="Suche" (input)="onSearchChange($event.target.value)">
+  </mat-form-field>
+</div>
+
+<mat-table [dataSource]="allReservations" class="mat-elevation-z8" dense="true" flexsy>
+
+  <ng-container matColumnDef="Id">
+    <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
+    <mat-cell *matCellDef="let reservation"> {{reservation.id}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="Start Datum">
+    <mat-header-cell *matHeaderCellDef> Start Datum </mat-header-cell>
+    <mat-cell *matCellDef="let reservation"> {{getStartDate(reservation.startDate)}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="End Datum">
+    <mat-header-cell *matHeaderCellDef> End Datum </mat-header-cell>
+    <mat-cell *matCellDef="let reservation"> {{getEndDate(reservation.endDate)}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="Kunde">
+    <mat-header-cell *matHeaderCellDef> Kunde </mat-header-cell>
+    <mat-cell *matCellDef="let reservation"> {{reservation.customer.name}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="Zimmer">
+    <mat-header-cell *matHeaderCellDef> Zimmer </mat-header-cell>
+    <mat-cell *matCellDef="let reservation">
+      <div>
+        <p *ngFor="let roomReservation of reservation.roomReservations">
+         {{roomReservation.room.name}}
+        </p>
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openDetailForReservation(row)"></mat-row>
+</mat-table>
+
+<a class="fabBottomRight" mat-fab routerLink="/reservation/add"><mat-icon svgIcon="add"></mat-icon></a>

@@ -1,0 +1,46 @@
+<!--The content below is only a placeholder and can be replaced.-->
+
+<mat-toolbar class="headerToolbar" color="primary">
+  <mat-toolbar-row>
+    <a routerLink="/" mat-button="primary">Hotelverwaltung</a>
+    <span class="toolbar-spacer"></span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-sidenav-container class="matNavDrawer">
+  <mat-sidenav class="matSidenav" #drawer mode="side" role="navigation" [opened]="true">
+    <mat-nav-list>
+      Navigation
+      <mat-divider></mat-divider>
+      <a mat-list-item routerLink='/customers'>Kunden</a>
+      <a mat-list-item routerLink='/reservations'>Reservierungen</a>
+      <a mat-list-item routerLink='/bills'>Rechnungen</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+<!-- <mat-sidenav-container [autosize]="true">
+  <mat-sidenav #sidenav mode="side" [opened]="true">
+    <p>Navigation</p>
+    <a href="/customers" mat-button="primary">Kunden</a>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container> -->
+
+<!--
+<mat-drawer-container class="matNavDrawer">
+  <mat-drawer class="matSidenav" mode="side" opened>
+    <p>Navigation</p>
+    <a href="/customers" mat-button="primary">Kunden</a>
+  </mat-drawer>
+  <mat-drawer-content>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>
+-->

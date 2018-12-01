@@ -1,0 +1,21 @@
+
+::ng-deep .mat-line{
+  word-wrap: break-word !important;
+  white-space: pre-wrap !important;
+}
+
+::ng-deep  .mat-list .mat-list-item{
+  height:initial !important;
+}
+
+.fabBottomRight {
+  z-index: 99;
+  position : fixed;
+  align-self : flex-end;
+  top: 80px;
+  right: 20px;
+}
+
+mat-row {
+  cursor: pointer;
+}

@@ -1,0 +1,69 @@
+<mat-table [dataSource]="allCustomers" class="mat-elevation-z8" dense="true" flexsy>
+
+  <ng-container matColumnDef="Id">
+    <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
+    <mat-cell *matCellDef="let customer"> {{customer.id}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="Name">
+    <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+    <mat-cell *matCellDef="let customer"> {{customer.name}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="Geburtsdatum">
+    <mat-header-cell *matHeaderCellDef> Geburtsdatum </mat-header-cell>
+    <mat-cell *matCellDef="let customer"> {{getBirthdate(customer.birthday)}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="Geschlecht">
+    <mat-header-cell *matHeaderCellDef> Geschlecht </mat-header-cell>
+    <mat-cell *matCellDef="let customer"> {{customer.gender}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="Rechnungsadresse">
+    <mat-header-cell *matHeaderCellDef> Rechnungsadresse </mat-header-cell>
+    <mat-cell *matCellDef="let customer"> {{customer.billingAddress}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="Firmenname">
+    <mat-header-cell *matHeaderCellDef> Firmenname </mat-header-cell>
+    <mat-cell *matCellDef="let customer"> {{customer.companyName}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="Notiz">
+    <mat-header-cell *matHeaderCellDef> Notiz </mat-header-cell>
+    <mat-cell *matCellDef="let customer"> {{customer.note}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="Rabatt">
+    <mat-header-cell *matHeaderCellDef> Rabatt </mat-header-cell>
+    <mat-cell *matCellDef="let customer"> {{customer.discount}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="Telefonnummer">
+    <mat-header-cell *matHeaderCellDef> Telefonnummer </mat-header-cell>
+    <mat-cell *matCellDef="let customer"> {{customer.telephoneNumber}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="E-Mail">
+    <mat-header-cell *matHeaderCellDef> E-Mail </mat-header-cell>
+    <mat-cell *matCellDef="let customer"> {{customer.email}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="Web">
+    <mat-header-cell *matHeaderCellDef> Web </mat-header-cell>
+    <mat-cell *matCellDef="let customer"> {{customer.web}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="Fax">
+    <mat-header-cell *matHeaderCellDef> Fax </mat-header-cell>
+    <mat-cell *matCellDef="let customer"> {{customer.fax}} </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+
+
+<a class="fabBottomRight" mat-fab routerLink="/customers/add"><mat-icon svgIcon="add"></mat-icon></a>
+

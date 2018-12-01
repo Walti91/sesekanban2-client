@@ -1,0 +1,97 @@
+<!-- TODO -->
+<h1>Reservierung anzeigen</h1>
+
+
+
+<div *ngIf="reservation">
+
+  <table>
+    <tr>
+      <td><b>Nummer: </b></td>
+      <td>{{reservation.id}}</td>
+    </tr>
+    <tr>
+      <td><b>Kunde: </b></td>
+      <td>{{reservation.customer.name}}</td>
+    </tr>
+    <tr>
+      <td><b>Start Datum: </b></td>
+      <td>{{getStartDate(reservation.startDate)}}</td>
+    </tr>
+    <tr>
+      <td><b>End Datum: </b></td>
+      <td>{{getEndDate(reservation.endDate)}}</td>
+    </tr>
+  </table>
+
+
+  <h2>Zimmer:</h2>
+  <mat-table [dataSource]="reservation.roomReservations" class="mat-elevation-z8" dense="true" flexsy>
+
+    <ng-container matColumnDef="Id">
+      <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
+      <mat-cell *matCellDef="let roomReservation"> {{roomReservation.room.id}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Name">
+      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+      <mat-cell *matCellDef="let roomReservation"> {{roomReservation.room.name}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Kapazität">
+      <mat-header-cell *matHeaderCellDef> Kapazität </mat-header-cell>
+      <mat-cell *matCellDef="let roomReservation"> {{roomReservation.room.capacity}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Kapazität Erwachsene">
+      <mat-header-cell *matHeaderCellDef> Kapazität Erwachsene </mat-header-cell>
+      <mat-cell *matCellDef="let roomReservation"> {{roomReservation.room.capacityAdults}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Preis Erwachsene">
+      <mat-header-cell *matHeaderCellDef> Preis Erwachsene </mat-header-cell>
+      <mat-cell *matCellDef="let roomReservation"> {{roomReservation.room.priceAdult}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Preis Kinder">
+      <mat-header-cell *matHeaderCellDef> Preis Kinder </mat-header-cell>
+      <mat-cell *matCellDef="let roomReservation"> {{roomReservation.room.priceChild}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Erwachsene">
+      <mat-header-cell *matHeaderCellDef> Erwachsene </mat-header-cell>
+      <mat-cell *matCellDef="let roomReservation"> {{roomReservation.adults}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Kinder">
+      <mat-header-cell *matHeaderCellDef> Kinder </mat-header-cell>
+      <mat-cell *matCellDef="let roomReservation"> {{roomReservation.children}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+
+
+
+
+</div>
+<!-- \TODO -->
+
+
+<form (ngSubmit)="onSubmit()" [formGroup]="commentForm">
+
+  <mat-form-field>
+    <input matInput placeholder="Kommentar" formControlName="comment" required>
+  </mat-form-field>
+
+  <button mat-flat-button color="accent" type="submit" [disabled]="!commentForm.valid">Speichern</button>
+</form>
+
+<h2>Kommentare</h2>
+
+<mat-list dense>
+  <mat-list-item *ngFor="let comment of FETCHEDCOMMENTS; let i = index">{{FETCHEDCOMMENTS.length - i}}: {{comment.text}}</mat-list-item>
+</mat-list>
+

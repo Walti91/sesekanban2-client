@@ -1,0 +1,33 @@
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+/*
+.headerToolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  width: 100%  !important;
+} */
+
+
+.matNavDrawer {
+  width: 100%;
+  height: 100% !important;
+  position: fixed;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+
+}
+
+.sidenavContent {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.matSidenav {
+  padding: 20px;
+}
