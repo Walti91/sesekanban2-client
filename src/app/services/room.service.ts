@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Room} from '../entities/room';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RoomService {
 
-  private roomBaseURL = 'http://localhost:8080/api/zimmer/';
+  private roomBaseURL = environment.serverUrl + 'zimmer/';
 
   httpOptions = {
     headers: new HttpHeaders({

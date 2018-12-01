@@ -5,14 +5,15 @@ import {Comment} from '../entities/comment';
 // import {Observable} from 'rxjs/index';
 import {Reservation} from '../entities/reservation';
 import {Customer} from '../entities/customer';
-import {Room} from "../entities/room";
+import {Room} from '../entities/room';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReservationService {
 
-  private reservationBaseURL = 'http://localhost:8080/api/reservierung/';
+  private reservationBaseURL = environment.serverUrl + 'reservierung/';
 
 
   httpOptions = {

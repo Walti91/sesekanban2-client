@@ -5,13 +5,14 @@ import {Bill} from "../entities/bill";
 import {Reservation} from "../entities/reservation";
 import {BillDetailComponent} from '../pages/bill-pages/bill-detail/bill-detail.component';
 import {BillDetail} from '../entities/bill-detail';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BillService {
 
-  private billBaseURL = 'http://localhost:8080/api/rechnung/';
+  private billBaseURL = environment.serverUrl + 'rechnung/';
 
   httpOptions = {
     headers: new HttpHeaders({

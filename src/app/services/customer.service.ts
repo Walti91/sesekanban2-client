@@ -3,13 +3,14 @@ import {Customer} from '../entities/customer';
 import {Observable} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CustomerService {
 
-  private customerBaseURL = 'http://localhost:8080/api/kunde/';
+  private customerBaseURL = environment.serverUrl + 'kunde/';
 
   httpOptions = {
     headers: new HttpHeaders({
