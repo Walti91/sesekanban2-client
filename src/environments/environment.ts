@@ -4,8 +4,7 @@
 
 export const environment = {
   production: false,
-  serverUrl: 'https://sesekanban2-server.herokuapp.com/api/'
-  // serverUrl: 'http://localhost:8080/api/'
+  serverUrl: 'http://localhost:8080/api/'
 };
 
 /*
