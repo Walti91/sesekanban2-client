@@ -5,6 +5,7 @@ import {Bill} from "../entities/bill";
 import {Reservation} from "../entities/reservation";
 import {BillDetailComponent} from '../pages/bill-pages/bill-detail/bill-detail.component';
 import {BillDetail} from '../entities/bill-detail';
+import {Reminder} from '../entities/reminder';
 import {environment} from '../../environments/environment';
 
 @Injectable({
@@ -37,6 +38,10 @@ export class BillService {
 
   getBillById(id: number): Observable<BillDetail> {
     return this.http.get<BillDetail>(this.billBaseURL + id);
+  }
+
+  sendReminder(id: number): Observable<Reminder> {
+    return this.http.post<Reminder>(this.billBaseURL + id + '/mahnung', this.httpOptions);
   }
 
   extractData(res: Response) {

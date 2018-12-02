@@ -15,11 +15,12 @@
     </tr>
     <tr>
       <td><b>Zimmer: </b></td>
-      <td><span *ngFor="let r of bill.reservations"><span *ngFor="let room of r.roomReservations">{{room.room.name}}, </span></span></td>
+      <td><span *ngFor="let r of bill.reservations"><span
+        *ngFor="let room of r.roomReservations">{{room.room.name}}, </span></span></td>
     </tr>
     <tr>
       <td><b>Rabatt: </b></td>
-      <td>{{bill.reservations[0].customer.discount}}</td>
+      <td>{{bill.reservations[0].customer.discount}}%</td>
     </tr>
     <tr>
       <td><b>Preis: </b></td>
@@ -27,18 +28,29 @@
     </tr>
     <tr>
       <td><b>Bezahlt: </b></td>
-      <td><span *ngFor="let p of bill.payments">{{getDateTimeString(p.timestamp)}}, </span></td>
+      <td><span *ngFor="let p of bill.payments">{{p.value + '€ am ' + getDateTimeString(p.timestamp)}}, </span></td>
     </tr>
     <tr>
       <td><b>Storniert: </b></td>
       <td>{{bill.cancelled}}</td>
     </tr>
     <tr>
-      <td><b>Überfällig: </b></td>
+      <td><b>Mahnungen: </b></td>
       <td><span *ngFor="let rem of bill.reminders">{{getDateTimeString(rem.timestamp)}}, </span></td>
     </tr>
   </table>
-  <button mat-raised-button color="accent" (click)="sendPaymentConfirmation()">Zahlungsbestätigung senden</button>
+  <div>
+    <button mat-raised-button color="accent" (click)="sendPaymentConfirmation()">Zahlungsbestätigung senden</button>
+  </div>
+  <div>
+    <button mat-raised-button color="warn" (click)="sendReminder()">Mahnung senden</button>
+    <div *ngIf="reminderSent === 'true'">
+      Die Mahnung wurde erfolgreich versendet!
+    </div>
+    <div *ngIf="reminderSent === 'false'">
+      Beim versenden der Mahnung ist ein Fehler aufgetreten!
+    </div>
+  </div>
 </div>
 
 

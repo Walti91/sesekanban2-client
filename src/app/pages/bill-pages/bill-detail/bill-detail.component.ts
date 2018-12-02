@@ -4,6 +4,7 @@ import {Reservation} from '../../../entities/reservation';
 import {BillService} from '../../../services/bill.service';
 import {ActivatedRoute} from '@angular/router';
 import {BillDetail} from '../../../entities/bill-detail';
+import {Reminder} from '../../../entities/reminder';
 
 @Component({
   selector: 'app-bill-detail',
@@ -15,6 +16,7 @@ export class BillDetailComponent implements OnInit, OnDestroy {
   private sub: Subscription;
   bill: BillDetail;
   private billId: number;
+  private reminderSent: String = 'undefined';
 
   constructor(private billService: BillService, private route: ActivatedRoute) { }
 
@@ -55,6 +57,16 @@ export class BillDetailComponent implements OnInit, OnDestroy {
   sendPaymentConfirmation() {
     console.log('TODO: CALL SERVICE');
     // TODO: Call service and redirect to e.g. Rechnungen
+  }
+
+  sendReminder() {
+    this.billService.sendReminder(this.billId).subscribe(reminder => {
+      if (reminder.emailSent) {
+        this.reminderSent = 'true';
+      } else {
+        this.reminderSent = 'false';
+      }
+    });
   }
 
   ngOnDestroy() {
