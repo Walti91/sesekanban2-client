@@ -48,6 +48,9 @@ export class ReservationAddComponent implements OnInit {
 
   customers: Customer[];
   rooms: Room[];
+  room: Room;
+  capacityAdults = 0;
+  capcityChildren = 0;
 
   ngOnInit() {
     this.customerService.getAllCustomers().subscribe(c => this.customers = c);
@@ -79,18 +82,23 @@ export class ReservationAddComponent implements OnInit {
       }
   }
 
+  updateRoom() {
+    this.room = this.rooms.find(element => element.id === this.roomId.value);
+    this.capacityAdults = this.room.capacityAdults;
+    this.capcityChildren = this.room.capacity;
+  }
+
   addRoomReservation() {
     const roomReservation: RoomReservation = new RoomReservation();
-    const room: Room = this.rooms.find(element => element.id === this.roomId.value);
-    console.log(room);
-    if (room.capacityAdults >= this.adults.value && room.capacity >= this.adults.value + this.children.value) {
-      roomReservation.name = room.name;
+    console.log(this.room);
+    if (this.room.capacityAdults >= this.adults.value && this.room.capacity >= this.adults.value + this.children.value) {
+      roomReservation.name = this.room.name;
       roomReservation.roomId = this.roomId.value;
       roomReservation.adults = this.adults.value;
       roomReservation.children = this.children.value;
       this.roomReservations.push(roomReservation);
-      this.dataSource._updateChangeSubscription();
-      this.rooms.splice(this.rooms.indexOf(room), 1);
+      this.dataSource = new MatTableDataSource<RoomReservation>(this.roomReservations);
+      this.rooms.splice(this.rooms.indexOf(this.room), 1);
     }
   }
 }

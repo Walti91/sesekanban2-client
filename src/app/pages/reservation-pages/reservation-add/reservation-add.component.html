@@ -62,7 +62,7 @@
 
         <mat-action-row>
         <mat-form-field>
-          <mat-select placeholder="Zimmer" formControlName="roomId" required>
+          <mat-select placeholder="Zimmer" formControlName="roomId" (selectionChange)="updateRoom()" required>
             <mat-option *ngFor="let r of rooms" [value]="r.id">
               {{r.name}}
             </mat-option>
@@ -70,11 +70,11 @@
         </mat-form-field>
 
         <mat-form-field>
-          <input matInput type="number" placeholder="Erwachsene" formControlName="adults" required>
+          <input matInput type="number" placeholder="Erwachsene (max {{capacityAdults}})" formControlName="adults" required>
         </mat-form-field>
 
         <mat-form-field>
-          <input matInput type="number" placeholder="Kinder" formControlName="children" required>
+          <input matInput type="number" placeholder="Kinder (max {{capcityChildren}})" formControlName="children" required>
         </mat-form-field>
 
          <button mat-flat-button color="accent" type="button" [disabled]="!roomId.valid || !adults.valid || !children.valid" (click)="addRoomReservation()">Hinzufügen</button>
