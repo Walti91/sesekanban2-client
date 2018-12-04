@@ -5,6 +5,6 @@ export class Payment {
   id: number;
   value: number;
   timestamp: Date;
-  isEmailSent: boolean;
+  emailSent: boolean;
   bill: BillDetail;
 }

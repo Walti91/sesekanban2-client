@@ -41,6 +41,12 @@
   </table>
   <div>
     <button mat-raised-button color="accent" (click)="sendPaymentConfirmation()">Zahlungsbestätigung senden</button>
+    <div *ngIf="paymentSent === 'true'">
+      Die Zahlungsbestätigung wurde erfolgreich versendet!
+    </div>
+    <div *ngIf="paymentSent === 'false'">
+      Beim versenden der Zahlungsbestätigung ist ein Fehler aufgetreten!
+    </div>
   </div>
   <div>
     <button mat-raised-button color="warn" (click)="sendReminder()">Mahnung senden</button>
