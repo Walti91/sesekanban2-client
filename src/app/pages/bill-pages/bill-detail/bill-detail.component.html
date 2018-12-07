@@ -40,8 +40,8 @@
     </tr>
   </table>
   <div>
-    <button mat-raised-button color="accent" [disabled]="disableBtn" (click)="sendPaymentConfirmation()">
-      {{disableBtn ? 'Zahlungsbestätigung gesendet' : 'Zahlungsbestätigung senden'}}
+    <button mat-raised-button color="accent" [disabled]="confirmationSent" (click)="sendPaymentConfirmation()">
+      {{confirmationSent ? 'Zahlungsbestätigung gesendet' : 'Zahlungsbestätigung senden'}}
     </button>
     <div>
       {{showConfirmationInfo ? (confirmationSent? 'Die ZahlungsBestätigung wurde erfolgreich versendet!':'Beim versenden der ZahlungsBestätigung ist ein Fehler aufgetreten!'):''}}

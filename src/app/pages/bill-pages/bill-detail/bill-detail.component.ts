@@ -20,7 +20,6 @@ export class BillDetailComponent implements OnInit, OnDestroy {
   private billId: number;
   private overdueSent = false;
   private confirmationSent = false;
-  private disableBtn = false;
   private showConfirmationInfo = false;
   private showOverdueInfo = false;
 
@@ -61,17 +60,14 @@ export class BillDetailComponent implements OnInit, OnDestroy {
   }
 
   sendPaymentConfirmation() {
-    for (const p of this.bill.payments) {
-      this.paymentService.sendPaymentMail(p.id).subscribe(payment => {
+    this.billService.sendPaymentConfirmation(this.billId).subscribe(payment => {
       if(payment !== null){
         this.confirmationSent = true;
-        this.disableBtn = true;
       }else{
         this.confirmationSent = false;
       }
       this.showConfirmationInfo = true;
     });
-    }
 
   }
 
