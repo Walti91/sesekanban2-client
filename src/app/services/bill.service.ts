@@ -6,6 +6,7 @@ import {Reservation} from "../entities/reservation";
 import {BillDetailComponent} from '../pages/bill-pages/bill-detail/bill-detail.component';
 import {BillDetail} from '../entities/bill-detail';
 import {Reminder} from '../entities/reminder';
+import {Payment} from '../entities/payment';
 import {environment} from '../../environments/environment';
 
 @Injectable({
@@ -40,8 +41,12 @@ export class BillService {
     return this.http.get<BillDetail>(this.billBaseURL + id);
   }
 
-  sendReminder(id: number): Observable<Reminder> {
-    return this.http.post<Reminder>(this.billBaseURL + id + '/mahnung', this.httpOptions);
+  sendOverdueNotice(id: number): Observable<Bill> {
+    return this.http.get<Bill>(this.billBaseURL + id + '/mahnung');
+  }
+
+  sendPaymentConfirmation(id: number): Observable<Payment> {
+    return this.http.get<Payment>(this.billBaseURL + id + '/zahlungsBestaetigung');
   }
 
   extractData(res: Response) {

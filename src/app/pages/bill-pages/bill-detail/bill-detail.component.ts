@@ -18,8 +18,11 @@ export class BillDetailComponent implements OnInit, OnDestroy {
   private sub: Subscription;
   bill: BillDetail;
   private billId: number;
-  private reminderSent: String = 'undefined';
-  private paymentSent: String = 'undefined';
+  private overdueSent = false;
+  private confirmationSent = false;
+  private disableBtn = false;
+  private showConfirmationInfo = false;
+  private showOverdueInfo = false;
 
   constructor(private billService: BillService, private paymentService: PaymentService, private route: ActivatedRoute) { }
 
@@ -60,22 +63,26 @@ export class BillDetailComponent implements OnInit, OnDestroy {
   sendPaymentConfirmation() {
     for (const p of this.bill.payments) {
       this.paymentService.sendPaymentMail(p.id).subscribe(payment => {
-        if (payment) {
-          this.paymentSent = 'true';
-        } else {
-          this.paymentSent = 'false';
-        }
-      });
+      if(payment !== null){
+        this.confirmationSent = true;
+        this.disableBtn = true;
+      }else{
+        this.confirmationSent = false;
+      }
+      this.showConfirmationInfo = true;
+    });
     }
+
   }
 
-  sendReminder() {
-    this.billService.sendReminder(this.billId).subscribe(reminder => {
-      if (reminder.emailSent) {
-        this.reminderSent = 'true';
+  sendOverdueNotice() {
+    this.billService.sendOverdueNotice(this.billId).subscribe(bill => {
+      if (bill !== null) {
+        this.overdueSent = true;
       } else {
-        this.reminderSent = 'false';
+        this.overdueSent = false;
       }
+      this.showOverdueInfo = true;
     });
   }
 
