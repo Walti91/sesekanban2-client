@@ -41,8 +41,8 @@ export class BillService {
     return this.http.get<BillDetail>(this.billBaseURL + id);
   }
 
-  sendReminder(id: number): Observable<Reminder> {
-    return this.http.post<Reminder>(this.billBaseURL + id + '/mahnung', this.httpOptions);
+  sendOverdueNotice(id: number): Observable<Bill> {
+    return this.http.get<Bill>(this.billBaseURL + id + '/mahnung');
   }
 
   sendPaymentConfirmation(id: number): Observable<Payment> {

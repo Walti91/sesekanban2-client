@@ -43,14 +43,14 @@
     <button mat-raised-button color="accent" [disabled]="disableBtn" (click)="sendPaymentConfirmation()">
       {{disableBtn ? 'Zahlungsbestätigung gesendet' : 'Zahlungsbestätigung senden'}}
     </button>
+    <div>
+      {{showConfirmationInfo ? (confirmationSent? 'Die ZahlungsBestätigung wurde erfolgreich versendet!':'Beim versenden der ZahlungsBestätigung ist ein Fehler aufgetreten!'):''}}
+    </div>
   </div>
   <div>
-    <button mat-raised-button color="warn" (click)="sendReminder()">Mahnung senden</button>
-    <div *ngIf="reminderSent === 'true'">
-      Die Mahnung wurde erfolgreich versendet!
-    </div>
-    <div *ngIf="reminderSent === 'false'">
-      Beim versenden der Mahnung ist ein Fehler aufgetreten!
+    <button mat-raised-button color="warn" (click)="sendOverdueNotice()">Mahnung senden</button>
+    <div>
+      {{showOverdueInfo ? (overdueSent? 'Die Mahnung wurde erfolgreich versendet!':'Beim versenden der Mahnung ist ein Fehler aufgetreten! Sind sie sicher, dass die Frist überschritten ist?'):''}}
     </div>
   </div>
 </div>
