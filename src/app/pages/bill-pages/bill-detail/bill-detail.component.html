@@ -40,7 +40,9 @@
     </tr>
   </table>
   <div>
-    <button mat-raised-button color="accent" (click)="sendPaymentConfirmation()">Zahlungsbestätigung senden</button>
+    <button mat-raised-button color="accent" [disabled]="disableBtn" (click)="sendPaymentConfirmation()">
+      {{disableBtn ? 'Zahlungsbestätigung gesendet' : 'Zahlungsbestätigung senden'}}
+    </button>
   </div>
   <div>
     <button mat-raised-button color="warn" (click)="sendReminder()">Mahnung senden</button>

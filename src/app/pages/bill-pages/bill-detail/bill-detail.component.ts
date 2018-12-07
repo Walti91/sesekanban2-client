@@ -17,6 +17,7 @@ export class BillDetailComponent implements OnInit, OnDestroy {
   bill: BillDetail;
   private billId: number;
   private reminderSent: String = 'undefined';
+  disableBtn = false;
 
   constructor(private billService: BillService, private route: ActivatedRoute) { }
 
@@ -55,8 +56,11 @@ export class BillDetailComponent implements OnInit, OnDestroy {
   }
 
   sendPaymentConfirmation() {
-    console.log('TODO: CALL SERVICE');
-    // TODO: Call service and redirect to e.g. Rechnungen
+    this.billService.sendPaymentConfirmation(this.billId).subscribe(payment => {
+      this.disableBtn = true;
+      //do nothing
+      //this.bill.payments = [payment];
+    });
   }
 
   sendReminder() {
