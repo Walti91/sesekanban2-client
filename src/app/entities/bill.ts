@@ -1,4 +1,5 @@
 import {Reservation} from "./reservation";
+import {Payment} from "./payment";
 
 export class Bill {
 
@@ -7,7 +8,7 @@ export class Bill {
   reservation: Reservation;
 
   reservationIds: number[];
-  payments: String[];
+  payments: Payment[];
   reminders: String[];
   amount: number;
 }
