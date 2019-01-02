@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ApplicationRef, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {Reservation} from '../../../entities/reservation';
 import {BillService} from '../../../services/bill.service';
@@ -60,9 +60,9 @@ export class BillDetailComponent implements OnInit, OnDestroy {
     
       this.paymentService.sendPaymentMail(id).subscribe(payment => {
         if (payment) {
-          payment.emailSent = true;
+          this.bill.payments.find(p => p.id === payment.id).emailSent = true;
         } else {
-          payment.emailSent = false;
+          this.bill.payments.find(p => p.id === payment.id).emailSent = false;
         }
       });
     
