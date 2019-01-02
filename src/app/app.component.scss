@@ -16,10 +16,13 @@
   width: 100%  !important;
 } */
 
+.currentNav {
+  background-color: lightblue;
+}
+
 mat-sidenav-content {
   margin: 12px;
 }
-
 
 .matNavDrawer {
   width: 100%;
