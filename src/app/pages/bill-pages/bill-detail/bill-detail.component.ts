@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ApplicationRef, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {Reservation} from '../../../entities/reservation';
 import {BillService} from '../../../services/bill.service';
@@ -19,7 +19,6 @@ export class BillDetailComponent implements OnInit, OnDestroy {
   bill: BillDetail;
   private billId: number;
   private reminderSent: String = 'undefined';
-  private paymentSent: String = 'undefined';
 
   constructor(private billService: BillService, private paymentService: PaymentService, private route: ActivatedRoute) { }
 
@@ -57,16 +56,16 @@ export class BillDetailComponent implements OnInit, OnDestroy {
     return Math.max.apply(null, reservations.map(res => Number(res.customer.discount)));
   }
 
-  sendPaymentConfirmation() {
-    for (const p of this.bill.payments) {
-      this.paymentService.sendPaymentMail(p.id).subscribe(payment => {
+  sendPaymentConfirmation(id: number) {
+    
+      this.paymentService.sendPaymentMail(id).subscribe(payment => {
         if (payment) {
-          this.paymentSent = 'true';
+          this.bill.payments.find(p => p.id === payment.id).emailSent = true;
         } else {
-          this.paymentSent = 'false';
+          this.bill.payments.find(p => p.id === payment.id).emailSent = false;
         }
       });
-    }
+    
   }
 
   sendReminder() {
