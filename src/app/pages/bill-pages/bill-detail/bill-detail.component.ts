@@ -78,6 +78,18 @@ export class BillDetailComponent implements OnInit, OnDestroy {
     });
   }
 
+  getPdf() {
+    this.billService.getBillPdfById(this.billId).subscribe(pdfStringBase64 => {
+      const link = document.createElement('a');
+      link.setAttribute('href', pdfStringBase64.billPdf);
+      link.setAttribute('download', 'Rechnung.pdf');
+
+      document.body.appendChild(link);
+
+      link.click();
+    });
+  }
+
   ngOnDestroy() {
     this.sub.unsubscribe();
   }

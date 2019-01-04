@@ -7,6 +7,7 @@ import {BillDetailComponent} from '../pages/bill-pages/bill-detail/bill-detail.c
 import {BillDetail} from '../entities/bill-detail';
 import {Reminder} from '../entities/reminder';
 import {environment} from '../../environments/environment';
+import {BillPdf} from '../entities/bill-pdf';
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +39,10 @@ export class BillService {
 
   getBillById(id: number): Observable<BillDetail> {
     return this.http.get<BillDetail>(this.billBaseURL + id);
+  }
+
+  getBillPdfById(id: number): Observable<BillPdf> {
+    return this.http.get<BillPdf>(this.billBaseURL + id + '/pdf');
   }
 
   sendReminder(id: number): Observable<Reminder> {
