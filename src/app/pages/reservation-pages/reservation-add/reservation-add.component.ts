@@ -101,4 +101,8 @@ export class ReservationAddComponent implements OnInit {
       this.rooms.splice(this.rooms.indexOf(this.room), 1);
     }
   }
+
+  createCustomer() {
+    this.router.navigateByUrl('/customers/add');
+  }
 }

@@ -5,6 +5,7 @@ import {CustomerService} from '../../../services/customer.service';
 import {Customer} from '../../../entities/customer';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
+import {Location} from '@angular/common';
 
 export interface SelectGender {
   value: Gender;
@@ -51,7 +52,7 @@ export class CustomerAddComponent implements OnInit {
     {value: Gender.OTHER, viewValue: 'Anderes'}
   ];
 
-  constructor(private customerService: CustomerService, private router: Router, private formBuilder: FormBuilder) {
+  constructor(private customerService: CustomerService, private router: Router, private formBuilder: FormBuilder, private location: Location) {
   }
 
   ngOnInit() {
@@ -81,7 +82,7 @@ export class CustomerAddComponent implements OnInit {
     console.log('RESULT: ');
     console.log(result.subscribe(value => value));
 
-    this.router.navigateByUrl('/customers');
+    this.location.back();
   }
 
 }
