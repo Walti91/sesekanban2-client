@@ -5,13 +5,13 @@
     <p></p>
     <div class="form-group">
       <mat-form-field>
-        <input matInput placeholder="Name" formControlName="name" required [value]="customer.name">
+        <input matInput placeholder="Name" formControlName="name" required [(ngModel)]="customer.name">
       </mat-form-field>
     </div>
 
     <div class="form-group">
       <mat-form-field>
-        <input matInput [matDatepicker]="picker" placeholder="Geburtsdatum auswählen" formControlName="birthday" [value]="getBirthday(customer.birthday)" required>
+        <input matInput [matDatepicker]="picker" placeholder="Geburtsdatum auswählen" formControlName="birthday" [value]="getBirthday(customer.birthday)" [(ngModel)]="customer.birthday" required>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
@@ -29,50 +29,50 @@
 
     <div class="form-group">
       <mat-form-field>
-        <input matInput placeholder="Rechnungsadresse" formControlName="billingAddress" [value]="customer.billingAddress" required>
+        <input matInput placeholder="Rechnungsadresse" formControlName="billingAddress" [(ngModel)]="customer.billingAddress" required>
       </mat-form-field>
     </div>
 
     <div class="form-group">
       <mat-form-field>
-        <input matInput placeholder="Firmenname" formControlName="companyName" [value]="customer.companyName">
+        <input matInput placeholder="Firmenname" formControlName="companyName" [(ngModel)]="customer.companyName">
       </mat-form-field>
     </div>
 
     <div class="form-group">
       <mat-form-field>
-        <input matInput placeholder="Notiz" formControlName="note" [value]="customer.note">
+        <input matInput placeholder="Notiz" formControlName="note" [(ngModel)]="customer.note">
       </mat-form-field>
     </div>
 
     <div class="form-group">
       <mat-form-field class="example-margin">
-        <input matInput type="number" placeholder="Rabatt (%)" formControlName="discount" [value]="customer.discount"/>
+        <input matInput type="number" placeholder="Rabatt (%)" formControlName="discount" [(ngModel)]="customer.discount"/>
       </mat-form-field>
     </div>
 
     <div class="form-group">
       <mat-form-field>
-        <input matInput placeholder="Telefonnummer" formControlName="telephonenumber" [value]="customer.telephoneNumber">
+        <input matInput placeholder="Telefonnummer" formControlName="telephonenumber" [(ngModel)]="customer.telephoneNumber">
       </mat-form-field>
     </div>
 
     <div class="form-group">
       <mat-form-field>
-        <input matInput placeholder="E-Mail" type="email" formControlName="email" [value]="customer.email" required>
+        <input matInput placeholder="E-Mail" type="email" formControlName="email" [(ngModel)]="customer.email" required>
         <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
     </div>
 
     <div class="form-group">
       <mat-form-field>
-        <input matInput placeholder="Web" formControlName="web" [value]="customer.web">
+        <input matInput placeholder="Web" formControlName="web" [(ngModel)]="customer.web">
       </mat-form-field>
     </div>
 
     <div class="form-group">
       <mat-form-field>
-        <input matInput placeholder="Fax" formControlName="fax" [value]="customer.fax">
+        <input matInput placeholder="Fax" formControlName="fax" [(ngModel)]="customer.fax">
       </mat-form-field>
     </div>
 

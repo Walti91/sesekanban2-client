@@ -16,7 +16,7 @@ import {Gender} from '../../../entities/gender.enum';
 export class CustomerDetailComponent implements OnInit {
 
   name = new FormControl('', [Validators.required]);
-  birthday = new FormControl('', [Validators.required]);
+  birthday = new FormControl('',[Validators.required]);
   gender = new FormControl('');
   billingAddress = new FormControl('', [Validators.required]);
   companyName = new FormControl('');
@@ -56,9 +56,13 @@ export class CustomerDetailComponent implements OnInit {
   customer: Customer;
 
 
+
   constructor(private formBuilder: FormBuilder, private customerService: CustomerService, private route: ActivatedRoute,  private router: Router) { }
 
   ngOnInit() {
+
+
+
     this.sub = this.route.params.subscribe(params => {
       this.customerId = +params['id'];
       this.fetchCustomer(this.customerId);
@@ -82,20 +86,51 @@ export class CustomerDetailComponent implements OnInit {
   onSubmit() {
     console.log('Clicked Submit');
 
-    const customer: Customer = new Customer();
-    customer.name = this.name.value;
-    customer.birthday = new Date(this.birthday.value);
-    customer.gender = ((Gender[this.gender.value as number]) as unknown) as Gender;
-    customer.billingAddress = this.billingAddress.value;
-    customer.companyName = this.companyName.value;
-    customer.note = this.note.value;
-    customer.discount = this.discount.value;
-    customer.telephoneNumber = this.telephonenumber.value;
-    customer.email = this.email.value;
-    customer.web = this.web.value;
-    customer.fax = this.fax.value;
+    if (this.name.dirty) {
+      this.customer.name = this.name.value;
+    }
 
-    console.log(customer);
+    if (this.birthday.dirty) {
+      this.customer.birthday = new Date(this.birthday.value);
+    }
+
+    if (this.gender.dirty) {
+      this.customer.gender = ((Gender[this.gender.value as number]) as unknown) as Gender;
+    }
+
+    if (this.billingAddress.dirty) {
+      this.customer.billingAddress = this.billingAddress.value;
+    }
+
+    if (this.companyName.dirty) {
+      this.customer.companyName = this.companyName.value;
+    }
+
+    if (this.note.dirty) {
+      this.customer.note = this.note.value;
+    }
+
+    if (this.discount.dirty) {
+      this.customer.discount = this.discount.value;
+    }
+
+    if (this.telephonenumber.dirty) {
+      this.customer.telephoneNumber = this.telephonenumber.value;
+    }
+
+    if (this.email.dirty) {
+      this.customer.email = this.email.value;
+    }
+
+    if (this.web.dirty) {
+      this.customer.web = this.web.value;
+    }
+
+    if (this.fax.dirty) {
+      this.customer.fax = this.fax.value;
+    }
+
+    console.log(this.customer);
 
     const result: Observable<Customer> = this.customerService.updateCustomer(this.customer, this.customerId);
 
