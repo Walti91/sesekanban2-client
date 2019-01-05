@@ -5,6 +5,7 @@ import {CustomerService} from '../../../services/customer.service';
 import {Customer} from '../../../entities/customer';
 import {Router} from '@angular/router';
 import {Observable} from 'rxjs';
+import {Location} from '@angular/common';
 
 export interface SelectGender {
   value: Gender;
@@ -25,10 +26,10 @@ export class CustomerAddComponent implements OnInit {
   companyName = new FormControl('');
   note = new FormControl('');
   discount = new FormControl('', [Validators.pattern('[0-9]*'), Validators.min(0), Validators.max(100)]);
-  telephonenumber = new FormControl('', [Validators.pattern('[0-9]*')]);
+  telephonenumber = new FormControl('');
   email = new FormControl('', [Validators.required, Validators.email]);
   web = new FormControl('');
-  fax = new FormControl('', [Validators.pattern('[0-9]*')]);
+  fax = new FormControl('');
 
   customerForm: FormGroup = new FormGroup({
     name: this.name,
@@ -51,7 +52,7 @@ export class CustomerAddComponent implements OnInit {
     {value: Gender.OTHER, viewValue: 'Anderes'}
   ];
 
-  constructor(private customerService: CustomerService, private router: Router, private formBuilder: FormBuilder) {
+  constructor(private customerService: CustomerService, private router: Router, private formBuilder: FormBuilder, private location: Location) {
   }
 
   ngOnInit() {
@@ -76,12 +77,14 @@ export class CustomerAddComponent implements OnInit {
     customer.web = this.web.value;
     customer.fax = this.fax.value;
 
+    console.log(customer);
+
     const result: Observable<Customer> = this.customerService.addCustomer(customer);
 
     console.log('RESULT: ');
     console.log(result.subscribe(value => value));
 
-    this.router.navigateByUrl('/customers');
+    this.location.back();
   }
 
 }
