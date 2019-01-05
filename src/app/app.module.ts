@@ -34,6 +34,7 @@ import { ReservationAddComponent } from './pages/reservation-pages/reservation-a
 import { BillComponent } from './pages/bill-pages/bill/bill.component';
 import { BillAddComponent } from './pages/bill-pages/bill-add/bill-add.component';
 import { BillDetailComponent } from './pages/bill-pages/bill-detail/bill-detail.component';
+import { CustomerDetailComponent } from './pages/customer-pages/customer-detail/customer-detail.component';
 
 const appRoutes: Routes = [
   { path: '', component: CustomerComponent},  // TODO: Change this to reservation-component since that would be probably the most used one.
@@ -45,6 +46,7 @@ const appRoutes: Routes = [
   { path: 'bills', component: BillComponent },
   { path: 'bills/add', component: BillAddComponent },
   { path: 'bills/detail/:id', component: BillDetailComponent },
+  { path: 'customers/detail/:id', component: CustomerDetailComponent },
   { path: '**', redirectTo: '/'}
 ];
 
@@ -59,6 +61,7 @@ const appRoutes: Routes = [
     ReservationComponent,
     ReservationAddComponent,
     BillDetailComponent,
+    CustomerDetailComponent,
   ],
   imports: [
     RouterModule.forRoot(
