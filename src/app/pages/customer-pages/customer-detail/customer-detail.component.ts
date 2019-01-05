@@ -22,10 +22,10 @@ export class CustomerDetailComponent implements OnInit {
   companyName = new FormControl('');
   note = new FormControl('');
   discount = new FormControl('', [Validators.pattern('[0-9]*'), Validators.min(0), Validators.max(100)]);
-  telephonenumber = new FormControl('', [Validators.pattern('[0-9]*')]);
+  telephonenumber = new FormControl('');
   email = new FormControl('', [Validators.required, Validators.email]);
   web = new FormControl('');
-  fax = new FormControl('', [Validators.pattern('[0-9]*')]);
+  fax = new FormControl('');
 
   customerForm: FormGroup = new FormGroup({
       name: this.name,
@@ -71,7 +71,24 @@ export class CustomerDetailComponent implements OnInit {
   }
 
   fetchCustomer(id: number) {
-    this.customerService.getCustomerById(this.customerId).subscribe(customer => this.customer = customer);
+    this.customerService.getCustomerById(this.customerId).subscribe(customer => {
+      this.customer = customer;
+
+      this.name.setValue(customer.name);
+
+      const cBirthday = new Date(new Date(customer.birthday).valueOf() - (new Date(customer.birthday)).getTimezoneOffset() * 60 * 1000);
+      this.birthday.setValue(cBirthday.toISOString().substring(0, 10));
+
+      this.gender.setValue(customer.gender);
+      this.billingAddress.setValue(customer.billingAddress);
+      this.companyName.setValue(customer.companyName);
+      this.note.setValue(customer.note);
+      this.discount.setValue(customer.discount);
+      this.telephonenumber.setValue(customer.telephoneNumber);
+      this.email.setValue(customer.email);
+      this.web.setValue(customer.web);
+      this.fax.setValue(customer.fax);
+    });
   }
 
   getErrorMessage() {

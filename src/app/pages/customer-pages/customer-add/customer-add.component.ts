@@ -25,10 +25,10 @@ export class CustomerAddComponent implements OnInit {
   companyName = new FormControl('');
   note = new FormControl('');
   discount = new FormControl('', [Validators.pattern('[0-9]*'), Validators.min(0), Validators.max(100)]);
-  telephonenumber = new FormControl('', [Validators.pattern('[0-9]*')]);
+  telephonenumber = new FormControl('');
   email = new FormControl('', [Validators.required, Validators.email]);
   web = new FormControl('');
-  fax = new FormControl('', [Validators.pattern('[0-9]*')]);
+  fax = new FormControl('');
 
   customerForm: FormGroup = new FormGroup({
     name: this.name,
