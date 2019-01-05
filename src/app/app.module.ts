@@ -34,6 +34,8 @@ import { ReservationAddComponent } from './pages/reservation-pages/reservation-a
 import { BillComponent } from './pages/bill-pages/bill/bill.component';
 import { BillAddComponent } from './pages/bill-pages/bill-add/bill-add.component';
 import { BillDetailComponent } from './pages/bill-pages/bill-detail/bill-detail.component';
+import { RoomOverviewTimescaleComponent } from './pages/room-overview-pages/room-overview-timescale/room-overview-timescale.component';
+import { RoomTimescaleComponent } from './pages/room-overview-pages/room-overview-timescale/room-timescale/room-timescale.component';
 
 const appRoutes: Routes = [
   { path: '', component: CustomerComponent},  // TODO: Change this to reservation-component since that would be probably the most used one.
@@ -45,6 +47,7 @@ const appRoutes: Routes = [
   { path: 'bills', component: BillComponent },
   { path: 'bills/add', component: BillAddComponent },
   { path: 'bills/detail/:id', component: BillDetailComponent },
+  { path: 'rooms/timescale', component: RoomOverviewTimescaleComponent },
   { path: '**', redirectTo: '/'}
 ];
 
@@ -59,6 +62,8 @@ const appRoutes: Routes = [
     ReservationComponent,
     ReservationAddComponent,
     BillDetailComponent,
+    RoomOverviewTimescaleComponent,
+    RoomTimescaleComponent,
   ],
   imports: [
     RouterModule.forRoot(
