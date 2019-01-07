@@ -49,6 +49,10 @@ export class BillService {
     return this.http.post<Reminder>(this.billBaseURL + id + '/mahnung', this.httpOptions);
   }
 
+  cancelBill(id: number): Observable<BillDetail> {
+    return this.http.put<BillDetail>(this.billBaseURL + id + '/storno', this.httpOptions);
+  }
+
   extractData(res: Response) {
     const body = res.json();
     return body || {};

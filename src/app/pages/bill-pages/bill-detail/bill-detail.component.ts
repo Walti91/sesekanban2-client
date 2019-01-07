@@ -57,7 +57,7 @@ export class BillDetailComponent implements OnInit, OnDestroy {
   }
 
   sendPaymentConfirmation(id: number) {
-    
+
       this.paymentService.sendPaymentMail(id).subscribe(payment => {
         if (payment) {
           this.bill.payments.find(p => p.id === payment.id).emailSent = true;
@@ -65,7 +65,7 @@ export class BillDetailComponent implements OnInit, OnDestroy {
           this.bill.payments.find(p => p.id === payment.id).emailSent = false;
         }
       });
-    
+
   }
 
   sendReminder() {
@@ -75,6 +75,12 @@ export class BillDetailComponent implements OnInit, OnDestroy {
       } else {
         this.reminderSent = 'false';
       }
+    });
+  }
+
+  cancelBill() {
+    this.billService.cancelBill(this.billId).subscribe(bill => {
+      this.bill.cancelled = bill.cancelled;
     });
   }
 
