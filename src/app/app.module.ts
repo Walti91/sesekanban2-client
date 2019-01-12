@@ -21,7 +21,7 @@ import {
   MAT_DATE_LOCALE,
   MatSelectModule,
   MatExpansionModule,
-  MatCardModule
+  MatCardModule, MatSortModule
 } from '@angular/material';
 import { CustomerComponent } from './pages/customer-pages/customer/customer.component';
 import {RouterModule, Routes} from '@angular/router';
@@ -36,6 +36,7 @@ import { BillAddComponent } from './pages/bill-pages/bill-add/bill-add.component
 import { BillDetailComponent } from './pages/bill-pages/bill-detail/bill-detail.component';
 import { RoomOverviewTimescaleComponent } from './pages/room-overview-pages/room-overview-timescale/room-overview-timescale.component';
 import { RoomTimescaleComponent } from './pages/room-overview-pages/room-overview-timescale/room-timescale/room-timescale.component';
+import { LogComponent } from './pages/log-pages/log/log.component';
 import { CustomerDetailComponent } from './pages/customer-pages/customer-detail/customer-detail.component';
 
 const appRoutes: Routes = [
@@ -49,6 +50,7 @@ const appRoutes: Routes = [
   { path: 'bills/add', component: BillAddComponent },
   { path: 'bills/detail/:id', component: BillDetailComponent },
   { path: 'rooms/timescale', component: RoomOverviewTimescaleComponent },
+  { path: 'logs', component: LogComponent },
   { path: 'customers/detail/:id', component: CustomerDetailComponent },
   { path: '**', redirectTo: '/'}
 ];
@@ -66,6 +68,7 @@ const appRoutes: Routes = [
     BillDetailComponent,
     RoomOverviewTimescaleComponent,
     RoomTimescaleComponent,
+    LogComponent,
     CustomerDetailComponent,
   ],
   imports: [
@@ -93,7 +96,8 @@ const appRoutes: Routes = [
     MatSelectModule,
     HttpClientModule,
     MatExpansionModule,
-    MatCardModule
+    MatCardModule,
+    MatSortModule
   ],
   providers: [{provide: MAT_DATE_LOCALE, useValue: 'de-DE'}],
   bootstrap: [AppComponent]
