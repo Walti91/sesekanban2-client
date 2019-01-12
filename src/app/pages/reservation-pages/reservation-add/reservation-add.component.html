@@ -70,11 +70,11 @@
         </mat-form-field>
 
         <mat-form-field>
-          <input matInput type="number" placeholder="Erwachsene (max {{capacityAdults}})" formControlName="adults" required>
+          <input matInput type="number" [class.warning]="adults.value > capacityAdults" [placeholder]="adults.value > capacityAdults ? 'Anzahl überschritten' : 'Erwachsene (max ' + capacityAdults + ')'" formControlName="adults" required>
         </mat-form-field>
 
         <mat-form-field>
-          <input matInput type="number" placeholder="Kinder (max {{capcityChildren}})" formControlName="children" required>
+          <input matInput type="number" [class.warning]="children.value > capcityChildren" [placeholder]="children.value > capcityChildren ? 'Anzahl überschritten' : 'Kinder (max ' + capcityChildren + ')'" formControlName="children" required>
         </mat-form-field>
 
          <button mat-flat-button color="accent" type="button" [disabled]="!roomId.valid || !adults.valid || !children.valid" (click)="addRoomReservation()">Hinzufügen</button>
