@@ -17,7 +17,14 @@
 
   <ng-container matColumnDef="Abgesagt">
     <mat-header-cell *matHeaderCellDef> Abgesagt </mat-header-cell>
-    <mat-cell *matCellDef="let bill"> {{bill.cancelled}} </mat-cell>
+      <mat-cell *matCellDef="let bill">
+        <ng-template [ngIf]="!bill.cancelled">
+          <p>false</p>
+        </ng-template>
+        <ng-template [ngIf]="bill.cancelled">
+          <p>email sent</p>
+        </ng-template>
+      </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="Amount">

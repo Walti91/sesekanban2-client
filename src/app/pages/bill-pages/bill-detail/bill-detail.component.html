@@ -32,7 +32,14 @@
     </tr>
     <tr>
       <td><b>Storniert: </b></td>
-      <td>{{bill.cancelled}}</td>
+      <td>
+        <ng-template [ngIf]="!bill.cancelled">
+          false
+        </ng-template>
+        <ng-template [ngIf]="bill.cancelled">
+          email sent
+        </ng-template>
+      </td>
     </tr>
     <tr>
       <td><b>Mahnungen: </b></td>
@@ -42,8 +49,8 @@
   <div>
     <b>Zahlungen:</b>
     <div *ngFor="let p of bill.payments">
-      Payment id: {{p.id}}, Amount: {{p.value}} 
-      <button [disabled]="p.emailSent" mat-raised-button color="accent" (click)="sendPaymentConfirmation(p.id)">{{p.emailSent? 'Zahlungsbestätigung gesendet':'Zahlungsbestätigung senden'}}</button> 
+      Payment id: {{p.id}}, Amount: {{p.value}}
+      <button [disabled]="p.emailSent" mat-raised-button color="accent" (click)="sendPaymentConfirmation(p.id)">{{p.emailSent? 'Zahlungsbestätigung gesendet':'Zahlungsbestätigung senden'}}</button>
     </div>
   </div>
   <div>
@@ -55,6 +62,13 @@
       Beim versenden der Mahnung ist ein Fehler aufgetreten!
     </div>
   </div>
+
+  <div>
+    <ng-template [ngIf]="!bill.cancelled">
+      <button mat-raised-button color="warn" (click)="cancelBill()">Stornieren</button>
+    </ng-template>
+  </div>
+
 
   <div>
     <button mat-raised-button (click)="getPdf()">Rechnungs-PDF herunterladen</button>
