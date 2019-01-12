@@ -33,11 +33,10 @@
       <mat-expansion-panel [disabled]="isDisabled">
         <mat-expansion-panel-header>
           <mat-panel-title>
-            Zimmer
           </mat-panel-title>
-          <mat-panel-description>
-            Bitte Zimmer eintragen
-          </mat-panel-description>
+          <mat-panel-title *ngIf="roomReservations.length == 0" class="panel-title">
+            Um Zimmer hinzuzufügen, hier klicken
+          </mat-panel-title>
         </mat-expansion-panel-header>
 
         <mat-table [dataSource]="dataSource" class="mat-elevation-z8" dense="true" flexsy>
