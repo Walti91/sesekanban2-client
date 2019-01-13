@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import {MatIconRegistry} from '@angular/material';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatIconRegistry, MatSort, MatTableDataSource} from '@angular/material';
 import {DomSanitizer} from '@angular/platform-browser';
 import {Reservation} from '../../../entities/reservation';
 import {ReservationService} from '../../../services/reservation.service';
-import {FormControl, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 
 @Component({
@@ -13,8 +12,10 @@ import {Router} from '@angular/router';
 })
 export class ReservationComponent implements OnInit {
 
-  allReservations: Reservation[];
-  displayedColumns: String[] = ['Id', 'Start Datum', 'End Datum', 'Kunde', 'Zimmer'];
+  @ViewChild(MatSort) sort: MatSort;
+
+  allReservations = new MatTableDataSource([] as Reservation[]);
+  displayedColumns: String[] = ['Id', 'startDate', 'End Datum', 'Kunde', 'Zimmer'];
 
   constructor(private reservationService: ReservationService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer,
               private router: Router) {
@@ -24,7 +25,10 @@ export class ReservationComponent implements OnInit {
   onSearchChange(searchValue: string ) {
 
     if (searchValue != null) {
-      this.reservationService.getReservationsByKeyword(searchValue).subscribe(reservations => this.allReservations = reservations);
+      this.reservationService.getReservationsByKeyword(searchValue).subscribe(reservations => {
+        this.allReservations.sort = this.sort;
+        this.allReservations.data = reservations;
+      });
     }
 
   }
@@ -44,7 +48,10 @@ export class ReservationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.reservationService.getAllReservations().subscribe(reservations => this.allReservations = reservations);
+    this.reservationService.getAllReservations().subscribe(reservations => {
+      this.allReservations.sort = this.sort;
+      this.allReservations.data = reservations;
+    });
   }
 
   openDetailForReservation(row: Reservation) {
