@@ -1,0 +1,44 @@
+<mat-card class="mat-elevation-z4">
+  <mat-card-header>
+    <mat-card-title>{{room.name}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <p>
+      Max. Belegzahl: {{room.capacity}}
+    </p>
+    <p>
+      Preis: {{room.priceChild}}-{{room.priceAdult}}€
+    </p>
+    <br/>
+    <em>Verfügbarkeit</em>
+    <form [formGroup]="dateForm">
+      <div>
+        <span class="fixedWidth">Von</span>
+        <mat-form-field>
+          <input matInput (dateChange)="onDateChanged()" [matDatepicker]="pickerFrom" placeholder="Datum auswählen" formControlName="from" required>
+          <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+          <mat-datepicker #pickerFrom></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div>
+        <span class="fixedWidth">Bis</span>
+        <mat-form-field>
+          <input matInput (dateChange)="onDateChanged()" [matDatepicker]="pickerTo" placeholder="Datum auswählen" formControlName="to" required>
+          <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+          <mat-datepicker #pickerTo></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </form>
+    <div *ngIf="!wasRequest">
+      <mat-icon svgIcon="unknown" class="unknownSvg"></mat-icon>
+    </div>
+    <div *ngIf="wasRequest">
+      <div *ngIf="free">
+        <mat-icon svgIcon="ok" class="okSvg"></mat-icon>
+      </div>
+      <div *ngIf="!free">
+        <mat-icon svgIcon="cancel" color="warn"></mat-icon>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

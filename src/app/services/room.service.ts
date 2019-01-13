@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Room} from '../entities/room';
 import {environment} from '../../environments/environment';
+import {RoomFree} from '../entities/room-free';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,10 @@ export class RoomService {
 
   getFreeRooms(startDate: Date, endDate: Date): Observable<Room[]> {
     return this.http.post<Room[]>(this.roomBaseURL + 'free', { startDate, endDate });
+  }
+
+  isRoomFree(roomId: number, startDate: Date, endDate: Date): Observable<RoomFree> {
+    return this.http.post<RoomFree>(this.roomBaseURL + 'free/' + roomId, { startDate, endDate });
   }
 
   getRoomByReservationId(reservationId: number): Observable<Room[]> {
