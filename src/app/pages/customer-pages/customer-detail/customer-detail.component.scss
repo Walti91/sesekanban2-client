@@ -1,5 +1,4 @@
-
-.reservationForm {
+.customerForm {
   align-content: center;
   text-align: center;
 }
@@ -8,16 +7,6 @@ mat-form-field {
   width: 30%;
 }
 
-a {
-  margin-left: 8px;
-  position: absolute;
-}
-  
 .saveButton {
-  margin-top: 16px;
   margin-bottom: 24px;
-}
-
-.panel-title {
-  color: red;
 }

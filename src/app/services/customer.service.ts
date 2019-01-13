@@ -29,6 +29,14 @@ export class CustomerService {
     return this.http.post<Customer>(this.customerBaseURL, customer, this.httpOptions);
   }
 
+  getCustomerById(id: number): Observable<Customer> {
+    return this.http.get<Customer>(this.customerBaseURL + id);
+  }
+
+  updateCustomer(customer: Customer, id: number): Observable<Customer> {
+    return this.http.put<Customer>(this.customerBaseURL + id, customer, this.httpOptions);
+  }
+
   extractData(res: Response) {
     const body = res.json();
     return body || {};
