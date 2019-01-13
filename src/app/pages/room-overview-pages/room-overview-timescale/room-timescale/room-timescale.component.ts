@@ -41,8 +41,14 @@ export class RoomTimescaleComponent implements OnInit {
 
   onDateChanged() {
     if (this.dateForm.valid) {
+      const dateFrom = new Date(this.from.value);
+      const dateTo = new Date(this.to.value);
+
+      dateFrom.setTime(dateFrom.getTime() - dateFrom.getTimezoneOffset() * 60 * 1000);
+      dateTo.setTime(dateTo.getTime() - dateTo.getTimezoneOffset() * 60 * 1000);
+
       this.roomService.isRoomFree(this.room.id,
-        new Date(this.from.value), new Date(this.to.value)).subscribe(roomFree => {
+        dateFrom, dateTo).subscribe(roomFree => {
           this.free = roomFree.free;
           this.wasRequest = true;
       });
