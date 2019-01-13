@@ -36,9 +36,10 @@ import { BillAddComponent } from './pages/bill-pages/bill-add/bill-add.component
 import { BillDetailComponent } from './pages/bill-pages/bill-detail/bill-detail.component';
 import { LogComponent } from './pages/log-pages/log/log.component';
 import { CustomerDetailComponent } from './pages/customer-pages/customer-detail/customer-detail.component';
+import { RoomDashboardComponent } from './pages/room-overview-pages/room-dashboard/room-dashboard.component';
 
 const appRoutes: Routes = [
-  { path: '', component: CustomerComponent},  // TODO: Change this to reservation-component since that would be probably the most used one.
+  { path: '', component: RoomDashboardComponent},  // TODO: Change this to reservation-component since that would be probably the most used one.
   { path: 'customers', component: CustomerComponent },
   { path: 'reservations', component: ReservationComponent },
   { path: 'customers/add', component: CustomerAddComponent },
@@ -49,6 +50,7 @@ const appRoutes: Routes = [
   { path: 'bills/detail/:id', component: BillDetailComponent },
   { path: 'logs', component: LogComponent },
   { path: 'customers/detail/:id', component: CustomerDetailComponent },
+  { path: 'dashboard', component: RoomDashboardComponent },
   { path: '**', redirectTo: '/'}
 ];
 
@@ -65,6 +67,7 @@ const appRoutes: Routes = [
     BillDetailComponent,
     LogComponent,
     CustomerDetailComponent,
+    RoomDashboardComponent,
   ],
   imports: [
     RouterModule.forRoot(
