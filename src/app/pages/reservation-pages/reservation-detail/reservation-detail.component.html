@@ -1,7 +1,4 @@
-<!-- TODO -->
-<h1>Reservierung anzeigen</h1>
-
-
+<h1>Reservierung</h1>
 
 <div *ngIf="reservation">
 
@@ -12,7 +9,7 @@
     </tr>
     <tr>
       <td><b>Kunde: </b></td>
-      <td>{{reservation.customer.name}}</td>
+      <td><a mat-list-item routerLink='/customers/detail/{{reservation.customer.id}}' routerLinkActive="currentNav">{{reservation.customer.name}}</a></td>
     </tr>
     <tr>
       <td><b>Start Datum: </b></td>
