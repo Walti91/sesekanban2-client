@@ -28,21 +28,23 @@ export class ReservationAddComponent implements OnInit {
   roomId = new FormControl('', [Validators.required]);
   adults = new FormControl('', [Validators.required]);
   children = new FormControl('', [Validators.required]);
+  pension = new FormControl('', [Validators.required]);
 
   roomReservations: RoomReservation[] = [];
 
-  displayedColumns = ['name', 'adults', 'children'];
+  displayedColumns = ['name', 'pension', 'adults', 'children'];
   dataSource = new MatTableDataSource(this.roomReservations);
 
   isDisabled = true;
-
+  
   reservationForm: FormGroup = new FormGroup({
       startDate: this.startDate,
       endDate: this.endDate,
       customerId: this.customerId,
       roomId: this.roomId,
       adults: this.adults,
-      children: this.children
+      children: this.children,
+      pension: this.pension
     }
   );
 
@@ -50,7 +52,7 @@ export class ReservationAddComponent implements OnInit {
   rooms: Room[];
   room: Room;
   capacityAdults = 0;
-  capcityChildren = 0;
+  capacity = 0;
 
   ngOnInit() {
     this.customerService.getAllCustomers().subscribe(c => this.customers = c);
@@ -85,21 +87,33 @@ export class ReservationAddComponent implements OnInit {
   updateRoom() {
     this.room = this.rooms.find(element => element.id === this.roomId.value);
     this.capacityAdults = this.room.capacityAdults;
-    this.capcityChildren = this.room.capacity;
+    this.capacity = this.room.capacity;
   }
 
   addRoomReservation() {
     const roomReservation: RoomReservation = new RoomReservation();
     console.log(this.room);
-    if (this.room.capacityAdults >= this.adults.value && this.room.capacity >= this.adults.value + this.children.value) {
-      roomReservation.name = this.room.name;
-      roomReservation.roomId = this.roomId.value;
-      roomReservation.adults = this.adults.value;
-      roomReservation.children = this.children.value;
-      this.roomReservations.push(roomReservation);
-      this.dataSource = new MatTableDataSource<RoomReservation>(this.roomReservations);
-      this.rooms.splice(this.rooms.indexOf(this.room), 1);
+    
+    //this check is here so that it is not possible to add the same room twice in one reservation
+    var roomExists = false;
+    for(var i=0;i<this.roomReservations.length;i++){
+      if(this.roomReservations[i].roomId===this.roomId.value){
+        roomExists=true;      
+      }
     }
+    if(!roomExists){
+      if (this.room.capacityAdults >= this.adults.value && this.adults.value >= 0 && this.room.capacity >= this.adults.value + this.children.value && this.children.value >= 0) {
+        roomReservation.name = this.room.name;
+        roomReservation.roomId = this.roomId.value;
+        roomReservation.adults = this.adults.value;
+        roomReservation.children = this.children.value;
+        roomReservation.pension = this.pension.value===''?'BREAKFAST':this.pension.value;
+        this.roomReservations.push(roomReservation);
+        this.dataSource = new MatTableDataSource<RoomReservation>(this.roomReservations);
+        this.rooms.splice(this.rooms.indexOf(this.room), 1);
+      }
+    }
+    
   }
 
   createCustomer() {

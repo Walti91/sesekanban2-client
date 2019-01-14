@@ -46,6 +46,11 @@
             <mat-cell *matCellDef="let roomReservation"> {{roomReservation.name}} </mat-cell>
           </ng-container>
 
+          <ng-container matColumnDef="pension">
+            <mat-header-cell *matHeaderCellDef> Pension </mat-header-cell>
+            <mat-cell *matCellDef="let roomReservation"> {{roomReservation.pension}} </mat-cell>
+          </ng-container>
+
           <ng-container matColumnDef="adults">
             <mat-header-cell *matHeaderCellDef> Erwachsene </mat-header-cell>
             <mat-cell *matCellDef="let roomReservation"> {{roomReservation.adults}} </mat-cell>
@@ -70,11 +75,19 @@
         </mat-form-field>
 
         <mat-form-field>
-          <input matInput type="number" [class.warning]="adults.value > capacityAdults" [placeholder]="adults.value > capacityAdults ? 'Anzahl überschritten' : 'Erwachsene (max ' + capacityAdults + ')'" formControlName="adults" required>
+          <mat-select [(value)]="selected" placeholder="BREAKFAST" formControlName="pension" required>
+            <mat-option value="FULL">FULL</mat-option>
+            <mat-option value="HALF">HALF</mat-option>
+            <mat-option default value="BREAKFAST">BREAKFAST</mat-option>
+          </mat-select>
         </mat-form-field>
 
         <mat-form-field>
-          <input matInput type="number" [class.warning]="children.value > capcityChildren" [placeholder]="children.value > capcityChildren ? 'Anzahl überschritten' : 'Kinder (max ' + capcityChildren + ')'" formControlName="children" required>
+          <input matInput type="number" [class.warning]="adults.value > capacityAdults" [placeholder]="adults.value > capacityAdults || adults.value < 0 ? 'Anzahl ungültig' : 'Erwachsene (max ' + capacityAdults + ')'" formControlName="adults" required>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput type="number" [class.warning]="children.value > capacity" [placeholder]="children.value > capacity || children.value > capacity-adults.value || children.value < 0? 'Anzahl ungültig' : 'Kinder (max ' + (capacity >= 0?adults.value >= 0?(capacity-adults.value):capacity:0) + ')'" formControlName="children" required>
         </mat-form-field>
 
          <button mat-flat-button color="accent" type="button" [disabled]="!roomId.valid || !adults.valid || !children.valid" (click)="addRoomReservation()">Hinzufügen</button>
