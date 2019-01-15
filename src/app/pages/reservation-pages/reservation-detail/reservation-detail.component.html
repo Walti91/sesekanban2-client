@@ -65,6 +65,11 @@
       <mat-cell *matCellDef="let roomReservation"> {{roomReservation.children}} </mat-cell>
     </ng-container>
 
+    <ng-container matColumnDef="Pension">
+      <mat-header-cell *matHeaderCellDef> Pension </mat-header-cell>
+      <mat-cell *matCellDef="let roomReservation"> {{roomReservation.pension}} </mat-cell>
+    </ng-container>
+
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>

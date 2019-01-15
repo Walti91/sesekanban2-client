@@ -22,7 +22,7 @@ export class ReservationDetailComponent implements OnInit, OnDestroy {
   private reservationId: number;
   private sub: Subscription;
 
-  displayedColumns: String[] = ['Id', 'Name', 'Kapazität', 'Kapazität Erwachsene', 'Preis Erwachsene', 'Preis Kinder', 'Erwachsene', 'Kinder'];
+  displayedColumns: String[] = ['Id', 'Name', 'Kapazität', 'Kapazität Erwachsene', 'Preis Erwachsene', 'Preis Kinder', 'Erwachsene', 'Kinder', 'Pension'];
 
   commentForm: FormGroup = new FormGroup({
     comment: this.comment
