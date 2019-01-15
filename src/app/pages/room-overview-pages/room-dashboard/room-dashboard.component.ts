@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ReservationService} from '../../../services/reservation.service';
 import {Reservation} from '../../../entities/reservation';
+import {Bill} from '../../../entities/bill';
+import {BillService} from '../../../services/bill.service';
 
 @Component({
   selector: 'app-room-dashboard',
@@ -9,10 +11,11 @@ import {Reservation} from '../../../entities/reservation';
 })
 export class RoomDashboardComponent implements OnInit {
 
-  constructor(private reservationService: ReservationService) { }
+  constructor(private reservationService: ReservationService, private billService: BillService) { }
 
   startingReservations: Reservation[];
   endingReservations: Reservation[];
+  overdueBills: Bill[];
 
   displayedColumns: String[] = ['Zimmer', 'Anzahl Erwachsene', 'Anzahl Kinder'];
 
@@ -22,6 +25,9 @@ export class RoomDashboardComponent implements OnInit {
     });
     this.reservationService.getTodaysEndingReservation().subscribe(reservations => {
       this.endingReservations = reservations;
+    });
+    this.billService.getOverdueBills().subscribe(bills => {
+           this.overdueBills = bills;
     });
   }
 
