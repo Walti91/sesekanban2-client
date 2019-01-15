@@ -19,6 +19,12 @@ import {log} from 'util';
 })
 export class ReservationAddComponent implements OnInit {
 
+  //spinner
+  color = 'primary';
+  mode = 'indeterminate';
+  value = 20;
+  submitClicked = false;
+
   constructor(private customerService: CustomerService, private roomService: RoomService, private reservationService: ReservationService, private router: Router, private formBuilder: FormBuilder) {
   }
 
@@ -28,7 +34,7 @@ export class ReservationAddComponent implements OnInit {
   roomId = new FormControl('', [Validators.required]);
   adults = new FormControl('', [Validators.required]);
   children = new FormControl('', [Validators.required]);
-  pension = new FormControl('', [Validators.required]);
+  pension = new FormControl('', []);
 
   roomReservations: RoomReservation[] = [];
 
@@ -69,10 +75,17 @@ export class ReservationAddComponent implements OnInit {
 
     const result: Observable<Reservation> = this.reservationService.addReservation(reservation);
 
-    console.log('RESULT: ');
-    console.log(result.subscribe(value => value));
+    // Create observer object
+    const myObserver = {
+      next: x => console.log('Observer got a next value: ' + x),
+      error: err => console.error('Observer got an error: ' + err),
+      complete: () => this.router.navigateByUrl('/reservations')
+    };
 
-    this.router.navigateByUrl('/reservations');
+    result.subscribe(myObserver);
+
+    this.submitClicked = true;
+    //this.router.navigateByUrl('/reservations');
   }
 
   checkDates() {

@@ -19,6 +19,12 @@ export interface SelectGender {
 })
 export class CustomerAddComponent implements OnInit {
 
+  //spinner
+  color = 'primary';
+  mode = 'indeterminate';
+  value = 20;
+  submitClicked = false;
+
   name = new FormControl('', [Validators.required]);
   birthday = new FormControl('', [Validators.required]);
   gender = new FormControl('');
@@ -81,10 +87,16 @@ export class CustomerAddComponent implements OnInit {
 
     const result: Observable<Customer> = this.customerService.addCustomer(customer);
 
-    console.log('RESULT: ');
-    console.log(result.subscribe(value => value));
+    // Create observer object
+    const myObserver = {
+      next: x => console.log('Observer got a next value: ' + x),
+      error: err => console.error('Observer got an error: ' + err),
+      complete: () => this.router.navigateByUrl('/customers')
+    };
 
-    this.location.back();
+    result.subscribe(myObserver);
+
+    this.submitClicked = true;
   }
 
 }
