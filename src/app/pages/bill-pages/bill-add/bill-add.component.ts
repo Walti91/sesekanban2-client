@@ -22,6 +22,12 @@ export class BillAddComponent implements OnInit {
   //reminders = new FormControl('', [Validators.required]);
   //amount = new FormControl('', [Validators.required]);
 
+  //spinner
+  color = 'primary';
+  mode = 'indeterminate';
+  value = 20;
+  submitClicked = false;
+
   billForm: FormGroup = new FormGroup({
       //cancelled: this.isCancelled,
       reservationIds: this.reservationIds,
@@ -48,9 +54,19 @@ export class BillAddComponent implements OnInit {
 
     const result: Observable<Bill> = this.billService.addBill(bill);
 
+    // Create observer object
+    const myObserver = {
+      next: x => console.log('Observer got a next value: ' + x),
+      error: err => console.error('Observer got an error: ' + err),
+      complete: () => this.router.navigateByUrl('/bills')
+    };
+
+    result.subscribe(myObserver);
+
     console.log('RESULT: ');
     console.log(result.subscribe(value => value));
 
-    this.router.navigateByUrl('/bills');
+    this.submitClicked = true;
+
   }
 }

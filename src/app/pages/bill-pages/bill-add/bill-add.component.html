@@ -12,6 +12,13 @@
       </mat-form-field>
     </div>
 
-    <button mat-flat-button color="accent" type="submit" [disabled]="!billForm.valid">Speichern</button>
+    <button mat-flat-button color="accent" type="submit" [disabled]="!billForm.valid || submitClicked">Speichern
+      <mat-progress-spinner *ngIf="submitClicked"
+          class="example-margin"
+          [color]="color"
+          [mode]="mode"
+          [value]="value">
+      </mat-progress-spinner>
+    </button>
   </form>
 </div>
