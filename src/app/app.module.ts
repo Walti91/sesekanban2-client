@@ -21,7 +21,8 @@ import {
   MAT_DATE_LOCALE,
   MatSelectModule,
   MatExpansionModule,
-  MatCardModule, MatSortModule
+  MatCardModule, MatSortModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 import { CustomerComponent } from './pages/customer-pages/customer/customer.component';
 import {RouterModule, Routes} from '@angular/router';
@@ -97,7 +98,8 @@ const appRoutes: Routes = [
     HttpClientModule,
     MatExpansionModule,
     MatCardModule,
-    MatSortModule
+    MatSortModule,
+    MatProgressSpinnerModule
   ],
   providers: [{provide: MAT_DATE_LOCALE, useValue: 'de-DE'}],
   bootstrap: [AppComponent]
