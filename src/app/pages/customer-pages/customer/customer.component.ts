@@ -13,8 +13,11 @@ import {Router} from '@angular/router';
 export class CustomerComponent implements OnInit {
 
   allCustomers: Customer[];
+  /*displayedColumns: String[] = ['Id', 'Name', 'Geburtsdatum', 'Geschlecht', 'Rechnungsadresse', 'Firmenname', 'Notiz', 'Rabatt',
+    'Telefonnummer', 'E-Mail', 'Web', 'Fax']; */
+
   displayedColumns: String[] = ['Id', 'Name', 'Geburtsdatum', 'Geschlecht', 'Rechnungsadresse', 'Firmenname', 'Notiz', 'Rabatt',
-    'Telefonnummer', 'E-Mail', 'Web', 'Fax'];
+    'Telefonnummer', 'E-Mail'];
 
   constructor(private customerService: CustomerService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, private router: Router) {
     iconRegistry.addSvgIcon('add', sanitizer.bypassSecurityTrustResourceUrl('assets/baseline-add-24px.svg'));

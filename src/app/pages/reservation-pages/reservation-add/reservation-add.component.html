@@ -75,7 +75,7 @@
         </mat-form-field>
 
         <mat-form-field>
-          <mat-select [(value)]="selected" placeholder="BREAKFAST" formControlName="pension" required>
+          <mat-select [(value)]="selected" placeholder="BREAKFAST" formControlName="pension">
             <mat-option value="FULL">FULL</mat-option>
             <mat-option value="HALF">HALF</mat-option>
             <mat-option default value="BREAKFAST">BREAKFAST</mat-option>
@@ -95,6 +95,13 @@
       </mat-expansion-panel>
     </div>
 
-    <button mat-flat-button class="saveButton" color="accent" type="submit" [disabled]="!reservationForm.valid">Speichern</button>
+    <button mat-flat-button class="saveButton" color="accent" type="submit" [disabled]="!reservationForm.valid || submitClicked">Speichern
+      <mat-progress-spinner *ngIf="submitClicked"
+          class="example-margin"
+          [color]="color"
+          [mode]="mode"
+          [value]="value">
+      </mat-progress-spinner>
+    </button>
   </form>
 </div>

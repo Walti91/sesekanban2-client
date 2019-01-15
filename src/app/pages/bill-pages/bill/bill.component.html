@@ -22,24 +22,24 @@
   </ng-container>
 
   <ng-container matColumnDef="Abgesagt">
-    <mat-header-cell *matHeaderCellDef> Abgesagt </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef> Storniert </mat-header-cell>
       <mat-cell *matCellDef="let bill">
         <ng-template [ngIf]="!bill.cancelled">
-          <p>false</p>
+          <p>Nein</p>
         </ng-template>
         <ng-template [ngIf]="bill.cancelled">
-          <p>email sent</p>
+          <p>Ja, E-Mail wurde gesendet</p>
         </ng-template>
       </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="Amount">
-    <mat-header-cell *matHeaderCellDef> Amount </mat-header-cell>
-    <mat-cell *matCellDef="let bill"> {{bill.amount}} </mat-cell>
+    <mat-header-cell *matHeaderCellDef> Preis </mat-header-cell>
+    <mat-cell *matCellDef="let bill"> {{bill.amount}}€ </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="Reservation">
-    <mat-header-cell *matHeaderCellDef> Reservation </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef> Reservierung </mat-header-cell>
     <mat-cell *matCellDef="let bill">
       <mat-table [dataSource]="bill.reservations" class="mat-elevation-z8" dense="true" flexsy>
         <ng-container matColumnDef="Id">
@@ -48,12 +48,12 @@
         </ng-container>
 
         <ng-container matColumnDef="StartDate">
-          <mat-header-cell *matHeaderCellDef> Start Date </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef> Von </mat-header-cell>
           <mat-cell *matCellDef="let reservation"> {{reservation.startDate.split("T")[0]}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="EndDate">
-          <mat-header-cell *matHeaderCellDef> End Date </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef> Bis </mat-header-cell>
           <mat-cell *matCellDef="let reservation"> {{reservation.endDate.split("T")[0]}} </mat-cell>
         </ng-container>
 
@@ -65,8 +65,9 @@
   </ng-container>
 
   <ng-container matColumnDef="Payment">
-    <mat-header-cell *matHeaderCellDef> Payment </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef> Zahlungen </mat-header-cell>
     <mat-cell *matCellDef="let bill">
+      <div *ngIf="bill.payments.length > 0">
       <mat-table [dataSource]="bill.payments" class="mat-elevation-z8" dense="true" flexsy>
         <ng-container matColumnDef="Id">
           <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
@@ -74,48 +75,51 @@
         </ng-container>
 
         <ng-container matColumnDef="Timestamp">
-          <mat-header-cell *matHeaderCellDef> Timestamp </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef> Zeitpunkt </mat-header-cell>
           <mat-cell *matCellDef="let payment"> {{payment.timestamp.split(":")[0].replace("T"," ")}}:{{payment.timestamp.split(":")[1]}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="EmailSent">
-          <mat-header-cell *matHeaderCellDef> Email Sent </mat-header-cell>
-          <mat-cell *matCellDef="let payment"> {{payment.emailSent}} </mat-cell>
+          <mat-header-cell *matHeaderCellDef> E-Mail gesendet </mat-header-cell>
+          <mat-cell *matCellDef="let payment"> <span *ngIf="payment.emailSent">Ja</span><span *ngIf="!payment.emailSent">Nein</span></mat-cell>
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayedColumnsPayment"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumnsPayment;"></mat-row>
 
       </mat-table>
+      </div>
+      <div *ngIf="bill.payments.length === 0">
+        Keine Zahlungen vorhanden
+      </div>
     </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="Reminder">
-    <mat-header-cell *matHeaderCellDef> Reminder </mat-header-cell>
-    <mat-cell *matCellDef="let bill">
-      <mat-table [dataSource]="bill.reminders" class="mat-elevation-z8" dense="true"
-      flexsy>
+      <mat-header-cell *matHeaderCellDef> Mahnungen </mat-header-cell>
+      <mat-cell *matCellDef="let bill">
+        <div *ngIf="bill.reminders.length > 0">
+        <mat-table [dataSource]="bill.reminders" class="mat-elevation-z8" dense="true"
+                   flexsy>
 
-        <ng-container matColumnDef="Timestamp">
-          <mat-header-cell *matHeaderCellDef> Timestamp </mat-header-cell>
-          <mat-cell *matCellDef="let reminder"> {{reminder.timestamp.split(":")[0].replace("T"," ")}}:{{reminder.timestamp.split(":")[1]}} </mat-cell>
-        </ng-container>
+          <ng-container matColumnDef="Timestamp">
+            <mat-header-cell *matHeaderCellDef> Zeitpunkt </mat-header-cell>
+            <mat-cell *matCellDef="let reminder"> {{reminder.timestamp.split(":")[0].replace("T"," ")}}:{{reminder.timestamp.split(":")[1]}} </mat-cell>
+          </ng-container>
 
-        <ng-container matColumnDef="EmailSent">
-          <mat-header-cell *matHeaderCellDef> Email Sent </mat-header-cell>
-          <mat-cell *matCellDef="let reminder"> {{reminder.emailSent}} </mat-cell>
-        </ng-container>
+          <ng-container matColumnDef="EmailSent">
+            <mat-header-cell *matHeaderCellDef> E-Mail gesendet </mat-header-cell>
+            <mat-cell *matCellDef="let reminder"> <span *ngIf="reminder.emailSent">Ja</span><span *ngIf="!reminder.emailSent">Nein</span></mat-cell>
+          </ng-container>
 
-        <mat-header-row *matHeaderRowDef="displayedColumnsReminder"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumnsReminder;"></mat-row>
-      </mat-table>
-
-      <!--<div>
-        <p *ngFor="let reminder of bill.reminders">
-         Send date: {{reminder.timestamp}}, email sent: {{reminder.emailSent}}
-        </p>
-      </div>-->
-    </mat-cell>
+          <mat-header-row *matHeaderRowDef="displayedColumnsReminder"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumnsReminder;"></mat-row>
+        </mat-table>
+        </div>
+        <div *ngIf="bill.reminders.length === 0">
+          Keine Mahnungen vorhanden
+        </div>
+      </mat-cell>
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
