@@ -7,6 +7,12 @@
     <input matInput placeholder="Suche" (input)="onSearchChange($event.target.value)">
   </mat-form-field>
 </div>
+<ng-template [ngIf]="!overdue">
+  <button mat-raised-button color="warn" (click)="overdueBill()">Überfällig</button>
+</ng-template>
+<ng-template [ngIf]="overdue">
+  <button mat-raised-button color="warn" (click)="exitOverdue()">Alle</button>
+</ng-template>
 
 <mat-table [dataSource]="allBills" class="mat-elevation-z8" dense="true" flexsy>
 
@@ -119,18 +125,11 @@
           <mat-header-row *matHeaderRowDef="displayedColumnsReminder"></mat-header-row>
           <mat-row *matRowDef="let row; columns: displayedColumnsReminder;"></mat-row>
         </mat-table>
-
-        <!--<div>
-          <p *ngFor="let reminder of bill.reminders">
-           Send date: {{reminder.timestamp}}, email sent: {{reminder.emailSent}}
-          </p>
-        </div>-->
-      </div>
-      <div *ngIf="bill.reminders.length === 0">
-        Keine Mahnungen vorhanden
-      </div>
-    </mat-cell>
-
+        </div>
+        <div *ngIf="bill.reminders.length === 0">
+          Keine Mahnungen vorhanden
+        </div>
+      </mat-cell>
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
