@@ -19,6 +19,7 @@ export class BillComponent implements OnInit {
   displayedColumnsReservation: String[] = ['Id','StartDate','EndDate'];
   displayedColumnsPayment: String[] = ['Id','Timestamp','EmailSent'];
   displayedColumnsReminder: String[] = ['Timestamp','EmailSent'];
+  overdue: boolean = false;
 
   constructor(private billService: BillService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, private router: Router) {
     iconRegistry.addSvgIcon('add', sanitizer.bypassSecurityTrustResourceUrl('assets/baseline-add-24px.svg'));
@@ -30,6 +31,16 @@ export class BillComponent implements OnInit {
       this.billService.getBillsByKeyword(searchValue).subscribe(bills => this.allBills = bills);
     }
 
+  }
+
+  overdueBill() {
+    this.billService.getOverdueBills().subscribe(bills => this.allBills = bills);
+    this.overdue=true;
+  }
+
+  exitOverdue() {
+    this.billService.getAllBills().subscribe(bills => this.allBills = bills);
+    this.overdue=false;
   }
 
   searchForBill(search: string) {

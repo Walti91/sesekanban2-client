@@ -7,6 +7,12 @@
     <input matInput placeholder="Suche" (input)="onSearchChange($event.target.value)">
   </mat-form-field>
 </div>
+<ng-template [ngIf]="!overdue">
+  <button mat-raised-button color="warn" (click)="overdueBill()">Überfällig</button>
+</ng-template>
+<ng-template [ngIf]="overdue">
+  <button mat-raised-button color="warn" (click)="exitOverdue()">Alle</button>
+</ng-template>
 
 <mat-table [dataSource]="allBills" class="mat-elevation-z8" dense="true" flexsy>
 
@@ -87,7 +93,7 @@
   <ng-container matColumnDef="Reminder">
     <mat-header-cell *matHeaderCellDef> Reminder </mat-header-cell>
     <mat-cell *matCellDef="let bill">
-      <mat-table [dataSource]="bill.reminders" class="mat-elevation-z8" dense="true" 
+      <mat-table [dataSource]="bill.reminders" class="mat-elevation-z8" dense="true"
       flexsy>
 
         <ng-container matColumnDef="Timestamp">
