@@ -1,0 +1,75 @@
+<h1>Anreise heute</h1>
+<hr>
+<div *ngFor="let reservation of startingReservations; let i = index">
+
+  <h4>{{reservation.customer.name}}</h4>
+
+
+  <mat-table [dataSource]="reservation.roomReservations" class="mat-elevation-z8" dense="true" flexsy>
+
+    <ng-container matColumnDef="Zimmer">
+      <mat-header-cell *matHeaderCellDef> Zimmer </mat-header-cell>
+      <mat-cell *matCellDef="let roomReservation"> {{roomReservation.room.name}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Anzahl Erwachsene">
+      <mat-header-cell *matHeaderCellDef> Anzahl Erwachsene </mat-header-cell>
+      <mat-cell *matCellDef="let roomReservation"> {{roomReservation.adults}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Anzahl Kinder">
+      <mat-header-cell *matHeaderCellDef> Anzahl Kinder </mat-header-cell>
+      <mat-cell *matCellDef="let roomReservation"> {{roomReservation.children}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <br>
+  <b>Kommentare:</b>
+
+  <mat-list>
+    <mat-list-item *ngFor="let comment of reservation.comments">{{comment}}</mat-list-item>
+  </mat-list>
+  <hr>
+</div>
+<br>
+<h1>Abreise heute</h1>
+<hr>
+<div *ngFor="let reservation of endingReservations; let i = index">
+
+  <h4>{{reservation.customer.name}}</h4>
+
+
+  <mat-table [dataSource]="reservation.roomReservations" class="mat-elevation-z8" dense="true" flexsy>
+
+    <ng-container matColumnDef="Zimmer">
+      <mat-header-cell *matHeaderCellDef> Zimmer </mat-header-cell>
+      <mat-cell *matCellDef="let roomReservation"> {{roomReservation.room.name}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Anzahl Erwachsene">
+      <mat-header-cell *matHeaderCellDef> Anzahl Erwachsene </mat-header-cell>
+      <mat-cell *matCellDef="let roomReservation"> {{roomReservation.adults}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Anzahl Kinder">
+      <mat-header-cell *matHeaderCellDef> Anzahl Kinder </mat-header-cell>
+      <mat-cell *matCellDef="let roomReservation"> {{roomReservation.children}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <br>
+  <b>Kommentare:</b>
+
+  <mat-list>
+    <mat-list-item *ngFor="let comment of reservation.comments">{{comment}}</mat-list-item>
+  </mat-list>
+  <hr>
+</div>
+
+
+
+
