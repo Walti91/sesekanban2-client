@@ -41,6 +41,14 @@
     </mat-cell>
   </ng-container>
 
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef> Aktionen </mat-header-cell>
+    <mat-cell *matCellDef="let reservation">
+      <button class="actionButton" (click)="test()" mat-flat-button color="accent">Rechnung erstellen</button>
+      <button class="actionButton" (click)="test()" mat-flat-button color="warn">Löschen</button>
+    </mat-cell>
+  </ng-container>
+
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openDetailForReservation(row)"></mat-row>
 </mat-table>
