@@ -38,3 +38,71 @@ mat-header-cell:nth-child(8) {
 mat-row {
   cursor: pointer;
 }
+
+.mat-table__wrapper .mat-table {
+    min-width: auto !important;
+    width: 100% !important;
+}
+
+.mat-header-row {
+    width: 100%;
+}
+
+.mat-row {
+    width: 100%;
+}
+
+.mat-column-Id {
+  flex: 0 0 25% !important;
+  max-width: 25px !important; 
+}
+
+.mat-column-Name {
+  flex: 0 0 25% !important;
+  max-width: 130px !important; 
+}
+
+.mat-column-Geburtsdatum {
+  flex: 0 0 25% !important;
+  max-width: 100px !important; 
+}
+
+.mat-column-Geschlecht {
+  flex: 0 0 25% !important;
+  max-width: 80px !important; 
+}
+
+.mat-column-Rechnungsadresse {
+  flex: 0 0 25% !important;
+  max-width: 120px !important; 
+}
+
+.mat-column-Firmenname {
+  flex: 0 0 25% !important;
+  max-width: 90px !important; 
+}
+
+.mat-column-Rabatt {
+  flex: 0 0 25% !important;
+  max-width: 45px !important; 
+}
+
+.mat-column-Telefonnummer {
+  flex: 0 0 25% !important;
+  max-width: 100px !important; 
+}
+
+.mat-column-E-Mail {
+  flex: 0 0 25% !important;
+  max-width: 100px !important; 
+}
+
+.mat-column-Web {
+  flex: 0 0 25% !important;
+  max-width: 45px !important; 
+}
+
+.mat-column-Fax {
+  flex: 0 0 25% !important;
+  max-width: 45px !important; 
+}
