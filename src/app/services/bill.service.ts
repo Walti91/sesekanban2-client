@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs/index";
 import {Bill} from "../entities/bill";
-import {Reservation} from "../entities/reservation";
-import {BillDetailComponent} from '../pages/bill-pages/bill-detail/bill-detail.component';
 import {BillDetail} from '../entities/bill-detail';
 import {Reminder} from '../entities/reminder';
 import {environment} from '../../environments/environment';

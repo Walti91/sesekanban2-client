@@ -11,77 +11,84 @@
 <mat-table [dataSource]="allBills" class="mat-elevation-z8" dense="true" flexsy>
 
   <ng-container matColumnDef="Id">
-    <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
-    <mat-cell *matCellDef="let bill"> {{bill.id}} </mat-cell>
+    <mat-header-cell *matHeaderCellDef> Id</mat-header-cell>
+    <mat-cell *matCellDef="let bill"> {{bill.id}}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="Abgesagt">
-    <mat-header-cell *matHeaderCellDef> Storniert </mat-header-cell>
-      <mat-cell *matCellDef="let bill">
-        <ng-template [ngIf]="!bill.cancelled">
-          <p>Nein</p>
-        </ng-template>
-        <ng-template [ngIf]="bill.cancelled">
-          <p>Ja, E-Mail wurde gesendet</p>
-        </ng-template>
-      </mat-cell>
+    <mat-header-cell *matHeaderCellDef> Storniert</mat-header-cell>
+    <mat-cell *matCellDef="let bill">
+      <ng-template [ngIf]="!bill.cancelled">
+        <p>Nein</p>
+      </ng-template>
+      <ng-template [ngIf]="bill.cancelled">
+        <p>Ja, E-Mail wurde gesendet</p>
+      </ng-template>
+    </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="Amount">
-    <mat-header-cell *matHeaderCellDef> Preis </mat-header-cell>
-    <mat-cell *matCellDef="let bill"> {{bill.amount}}€ </mat-cell>
+    <mat-header-cell *matHeaderCellDef> Preis</mat-header-cell>
+    <mat-cell *matCellDef="let bill"> {{bill.amount}}€</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="Reservation">
-    <mat-header-cell *matHeaderCellDef> Reservierung </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef> Reservierung</mat-header-cell>
     <mat-cell *matCellDef="let bill">
-      <mat-table [dataSource]="bill.reservations" class="mat-elevation-z8" dense="true" flexsy>
-        <ng-container matColumnDef="Id">
-          <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
-          <mat-cell *matCellDef="let reservation"> {{reservation.id}} </mat-cell>
-        </ng-container>
+      <div *ngIf="bill.reservations.length > 0">
+        <mat-table [dataSource]="bill.reservations" class="mat-elevation-z8" dense="true" flexsy>
+          <ng-container matColumnDef="Id">
+            <mat-header-cell *matHeaderCellDef> Id</mat-header-cell>
+            <mat-cell *matCellDef="let reservation"> {{reservation.id}}</mat-cell>
+          </ng-container>
 
-        <ng-container matColumnDef="StartDate">
-          <mat-header-cell *matHeaderCellDef> Von </mat-header-cell>
-          <mat-cell *matCellDef="let reservation"> {{reservation.startDate.split("T")[0]}} </mat-cell>
-        </ng-container>
+          <ng-container matColumnDef="StartDate">
+            <mat-header-cell *matHeaderCellDef> Von</mat-header-cell>
+            <mat-cell *matCellDef="let reservation"> {{reservation.startDate.split("T")[0]}}</mat-cell>
+          </ng-container>
 
-        <ng-container matColumnDef="EndDate">
-          <mat-header-cell *matHeaderCellDef> Bis </mat-header-cell>
-          <mat-cell *matCellDef="let reservation"> {{reservation.endDate.split("T")[0]}} </mat-cell>
-        </ng-container>
+          <ng-container matColumnDef="EndDate">
+            <mat-header-cell *matHeaderCellDef> Bis</mat-header-cell>
+            <mat-cell *matCellDef="let reservation"> {{reservation.endDate.split("T")[0]}}</mat-cell>
+          </ng-container>
 
-        <mat-header-row *matHeaderRowDef="displayedColumnsReservation"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumnsReservation;"></mat-row>
-      </mat-table>
-
+          <mat-header-row *matHeaderRowDef="displayedColumnsReservation"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumnsReservation;"></mat-row>
+        </mat-table>
+      </div>
+      <div *ngIf="bill.reservations.length === 0">
+        Keine Reservierungen mehr vorhanden
+      </div>
     </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="Payment">
-    <mat-header-cell *matHeaderCellDef> Zahlungen </mat-header-cell>
+    <mat-header-cell *matHeaderCellDef> Zahlungen</mat-header-cell>
     <mat-cell *matCellDef="let bill">
       <div *ngIf="bill.payments.length > 0">
-      <mat-table [dataSource]="bill.payments" class="mat-elevation-z8" dense="true" flexsy>
-        <ng-container matColumnDef="Id">
-          <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
-          <mat-cell *matCellDef="let payment"> {{payment.id}} </mat-cell>
-        </ng-container>
+        <mat-table [dataSource]="bill.payments" class="mat-elevation-z8" dense="true" flexsy>
+          <ng-container matColumnDef="Id">
+            <mat-header-cell *matHeaderCellDef> Id</mat-header-cell>
+            <mat-cell *matCellDef="let payment"> {{payment.id}}</mat-cell>
+          </ng-container>
 
-        <ng-container matColumnDef="Timestamp">
-          <mat-header-cell *matHeaderCellDef> Zeitpunkt </mat-header-cell>
-          <mat-cell *matCellDef="let payment"> {{payment.timestamp.split(":")[0].replace("T"," ")}}:{{payment.timestamp.split(":")[1]}} </mat-cell>
-        </ng-container>
+          <ng-container matColumnDef="Timestamp">
+            <mat-header-cell *matHeaderCellDef> Zeitpunkt</mat-header-cell>
+            <mat-cell *matCellDef="let payment"> {{payment.timestamp.split(":")[0].replace("T","
+              ")}}:{{payment.timestamp.split(":")[1]}}
+            </mat-cell>
+          </ng-container>
 
-        <ng-container matColumnDef="EmailSent">
-          <mat-header-cell *matHeaderCellDef> E-Mail gesendet </mat-header-cell>
-          <mat-cell *matCellDef="let payment"> <span *ngIf="payment.emailSent">Ja</span><span *ngIf="!payment.emailSent">Nein</span></mat-cell>
-        </ng-container>
+          <ng-container matColumnDef="EmailSent">
+            <mat-header-cell *matHeaderCellDef> E-Mail gesendet</mat-header-cell>
+            <mat-cell *matCellDef="let payment"><span *ngIf="payment.emailSent">Ja</span><span
+              *ngIf="!payment.emailSent">Nein</span></mat-cell>
+          </ng-container>
 
-        <mat-header-row *matHeaderRowDef="displayedColumnsPayment"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumnsPayment;"></mat-row>
+          <mat-header-row *matHeaderRowDef="displayedColumnsPayment"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumnsPayment;"></mat-row>
 
-      </mat-table>
+        </mat-table>
       </div>
       <div *ngIf="bill.payments.length === 0">
         Keine Zahlungen vorhanden
@@ -90,20 +97,23 @@
   </ng-container>
 
   <ng-container matColumnDef="Reminder">
-      <mat-header-cell *matHeaderCellDef> Mahnungen </mat-header-cell>
-      <mat-cell *matCellDef="let bill">
-        <div *ngIf="bill.reminders.length > 0">
+    <mat-header-cell *matHeaderCellDef> Mahnungen</mat-header-cell>
+    <mat-cell *matCellDef="let bill">
+      <div *ngIf="bill.reminders.length > 0">
         <mat-table [dataSource]="bill.reminders" class="mat-elevation-z8" dense="true"
                    flexsy>
 
           <ng-container matColumnDef="Timestamp">
-            <mat-header-cell *matHeaderCellDef> Zeitpunkt </mat-header-cell>
-            <mat-cell *matCellDef="let reminder"> {{reminder.timestamp.split(":")[0].replace("T"," ")}}:{{reminder.timestamp.split(":")[1]}} </mat-cell>
+            <mat-header-cell *matHeaderCellDef> Zeitpunkt</mat-header-cell>
+            <mat-cell *matCellDef="let reminder"> {{reminder.timestamp.split(":")[0].replace("T","
+              ")}}:{{reminder.timestamp.split(":")[1]}}
+            </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="EmailSent">
-            <mat-header-cell *matHeaderCellDef> E-Mail gesendet </mat-header-cell>
-            <mat-cell *matCellDef="let reminder"> <span *ngIf="reminder.emailSent">Ja</span><span *ngIf="!reminder.emailSent">Nein</span></mat-cell>
+            <mat-header-cell *matHeaderCellDef> E-Mail gesendet</mat-header-cell>
+            <mat-cell *matCellDef="let reminder"><span *ngIf="reminder.emailSent">Ja</span><span
+              *ngIf="!reminder.emailSent">Nein</span></mat-cell>
           </ng-container>
 
           <mat-header-row *matHeaderRowDef="displayedColumnsReminder"></mat-header-row>
@@ -115,11 +125,11 @@
            Send date: {{reminder.timestamp}}, email sent: {{reminder.emailSent}}
           </p>
         </div>-->
-        </div>
-        <div *ngIf="bill.reminders.length === 0">
-          Keine Mahnungen vorhanden
-        </div>
-      </mat-cell>
+      </div>
+      <div *ngIf="bill.reminders.length === 0">
+        Keine Mahnungen vorhanden
+      </div>
+    </mat-cell>
 
   </ng-container>
 
@@ -127,4 +137,6 @@
   <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openDetailForBill(row)"></mat-row>
 </mat-table>
 
-<a class="fabBottomRight" mat-fab routerLink="/bills/add"><mat-icon svgIcon="add"></mat-icon></a>
+<a class="fabBottomRight" mat-fab routerLink="/bills/add">
+  <mat-icon svgIcon="add"></mat-icon>
+</a>

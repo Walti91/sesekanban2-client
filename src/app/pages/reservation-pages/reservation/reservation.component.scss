@@ -23,3 +23,8 @@ mat-row {
 .actionButton {
   margin-left: 1em;
 }
+
+.mat-cell:nth-child(6),
+mat-header-cell:nth-child(6) {
+  min-width: 17em;
+}
