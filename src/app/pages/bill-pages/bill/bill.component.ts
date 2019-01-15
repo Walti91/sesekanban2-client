@@ -16,6 +16,9 @@ export class BillComponent implements OnInit {
 
   allBills: Bill[];
   displayedColumns: String[] = ['Id', 'Abgesagt', 'Amount', 'Reservation', 'Reminder', 'Payment'];
+  displayedColumnsReservation: String[] = ['Id','StartDate','EndDate'];
+  displayedColumnsPayment: String[] = ['Id','Timestamp','EmailSent'];
+  displayedColumnsReminder: String[] = ['Timestamp','EmailSent'];
 
   constructor(private billService: BillService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, private router: Router) {
     iconRegistry.addSvgIcon('add', sanitizer.bypassSecurityTrustResourceUrl('assets/baseline-add-24px.svg'));

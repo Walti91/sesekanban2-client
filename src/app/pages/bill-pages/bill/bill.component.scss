@@ -19,3 +19,46 @@
 mat-row {
   cursor: pointer;
 }
+
+.mat-table__wrapper .mat-table {
+    min-width: auto !important;
+    width: 100% !important;
+}
+
+.mat-header-row {
+    width: 100%;
+}
+
+.mat-row {
+    width: 100%;
+}
+
+.mat-column-Id {
+	flex: 0 0 25% !important;
+    max-width: 25px !important;	
+}
+
+.mat-column-Abgesagt {
+	flex: 0 0 25% !important;
+    max-width: 70px !important;	
+}
+
+.mat-column-Amount {
+	flex: 0 0 25% !important;
+    max-width: 60px !important;	
+}
+
+.mat-column-StartDate {
+	flex: 0 0 25% !important;
+    min-width: 100px !important;	
+}
+
+.mat-column-EndDate {
+	flex: 0 0 25% !important;
+    min-width: 100px !important;	
+}
+
+.mat-column-Timestamp {
+	flex: 0 0 25% !important;
+    min-width: 150px !important;	
+}
