@@ -34,7 +34,7 @@ export class ReservationAddComponent implements OnInit {
   roomId = new FormControl('', [Validators.required]);
   adults = new FormControl('', [Validators.required]);
   children = new FormControl('', [Validators.required]);
-  pension = new FormControl('', [Validators.required]);
+  pension = new FormControl('', []);
 
   roomReservations: RoomReservation[] = [];
 
