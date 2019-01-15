@@ -96,9 +96,6 @@ export class CustomerAddComponent implements OnInit {
 
     result.subscribe(myObserver);
 
-    console.log('RESULT: ');
-    console.log(result.subscribe(value => value));
-
     this.submitClicked = true;
   }
 

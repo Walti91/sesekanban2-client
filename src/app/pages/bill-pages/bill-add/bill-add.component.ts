@@ -9,6 +9,7 @@ import {Bill} from '../../../entities/bill';
 import {Observable} from 'rxjs';
 import {ReservationService} from '../../../services/reservation.service';
 import {BillService} from '../../../services/bill.service';
+import {SelectionModel} from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-bill-add',
@@ -17,10 +18,34 @@ import {BillService} from '../../../services/bill.service';
 })
 export class BillAddComponent implements OnInit {
 
-  //cancelled = new FormControl('', [Validators.required]);
-  reservationIds = new FormControl('', [Validators.required]);
-  //reminders = new FormControl('', [Validators.required]);
-  //amount = new FormControl('', [Validators.required]);
+  reservations: Reservation[];
+  reservationIds = []
+
+  //reservations table
+  displayedColumns: String[] = ['select', 'Id', 'startDate', 'End Datum', 'Kunde', 'Zimmer'];
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.reservations.length;
+    return numSelected === numRows;
+  }
+  updateReservationIds(row){
+    this.selection.toggle(row);
+    
+    this.reservationIds = [];
+    for(var i=0;i<this.selection.selected.length;i++){
+      this.reservationIds.push(this.selection.selected[i].id);
+    }
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+        this.selection.clear() :
+        this.reservations.forEach(row => this.selection.select(row));
+  }
+  selection = new SelectionModel<Reservation>(true, []);
+
 
   //spinner
   color = 'primary';
@@ -28,29 +53,29 @@ export class BillAddComponent implements OnInit {
   value = 20;
   submitClicked = false;
 
-  billForm: FormGroup = new FormGroup({
-      //cancelled: this.isCancelled,
-      reservationIds: this.reservationIds,
-      //amount: this.amount
-      //reminders: this.reminders,
-    }
-  );
-
-  reservations: Reservation[];
   
   constructor(private billService: BillService, private reservationService: ReservationService, private router: Router, private formBuilder: FormBuilder) {
   }
 
+  getStartDate (startDate: string): String {
+    const myDate = new Date(startDate);
+    return myDate.toLocaleDateString('de');
+  }
+
+  getEndDate (endeDate: string): String {
+    const myDate = new Date(endeDate);
+    return myDate.toLocaleDateString('de');
+  }
+
   ngOnInit() {
     this.reservationService.getAllReservations().subscribe(r => this.reservations = r);
-    console.log("res: "+this.reservations);
   }
 
   onSubmit() {
     console.log('Clicked Submit');
 
     const bill: Bill = new Bill();
-    bill.reservationIds = this.reservationIds.value;
+    bill.reservationIds = this.reservationIds;
 
     const result: Observable<Bill> = this.billService.addBill(bill);
 
@@ -62,9 +87,6 @@ export class BillAddComponent implements OnInit {
     };
 
     result.subscribe(myObserver);
-
-    console.log('RESULT: ');
-    console.log(result.subscribe(value => value));
 
     this.submitClicked = true;
 

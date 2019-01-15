@@ -22,7 +22,8 @@ import {
   MatSelectModule,
   MatExpansionModule,
   MatCardModule, MatSortModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatCheckboxModule
 } from '@angular/material';
 import { CustomerComponent } from './pages/customer-pages/customer/customer.component';
 import {RouterModule, Routes} from '@angular/router';
@@ -102,7 +103,8 @@ const appRoutes: Routes = [
     MatExpansionModule,
     MatCardModule,
     MatSortModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatCheckboxModule
   ],
   providers: [{provide: MAT_DATE_LOCALE, useValue: 'de-DE'}],
   bootstrap: [AppComponent]

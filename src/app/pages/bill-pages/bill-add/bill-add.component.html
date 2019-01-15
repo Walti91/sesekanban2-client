@@ -1,18 +1,71 @@
 <div class="billForm">
   <h1>Rechnung anlegen</h1>
-  <form (ngSubmit)="onSubmit()" [formGroup]="billForm">
+  <form (ngSubmit)="onSubmit()">
 
     <div class="form-group">
-      <mat-form-field>
+
+      <mat-table [dataSource]="reservations" class="mat-elevation-z8" matSort>
+      <!-- Checkbox Column -->
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <mat-checkbox (change)="$event ? masterToggle() : null"
+                          [checked]="selection.hasValue() && isAllSelected()"
+                          [indeterminate]="selection.hasValue() && !isAllSelected()">
+            </mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()"
+                          (change)="$event ? updateReservationIds(row) : null"
+                          [checked]="selection.isSelected(row)">
+            </mat-checkbox>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="Id">
+          <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
+          <mat-cell *matCellDef="let reservation"> {{reservation.id}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="startDate">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Start Datum </mat-header-cell>
+          <mat-cell *matCellDef="let reservation"> {{getStartDate(reservation.startDate)}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="End Datum">
+          <mat-header-cell *matHeaderCellDef> End Datum </mat-header-cell>
+          <mat-cell *matCellDef="let reservation"> {{getEndDate(reservation.endDate)}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Kunde">
+          <mat-header-cell *matHeaderCellDef> Kunde </mat-header-cell>
+          <mat-cell *matCellDef="let reservation"> {{reservation.customer.name}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Zimmer">
+          <mat-header-cell *matHeaderCellDef> Zimmer </mat-header-cell>
+          <mat-cell *matCellDef="let reservation">
+            <div>
+              <p *ngFor="let roomReservation of reservation.roomReservations">
+               {{roomReservation.room.name}}
+              </p>
+            </div>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+      </mat-table>
+
+      <!--<mat-form-field>
         <mat-select placeholder="Reservierung" formControlName="reservationIds" multiple required>
           <mat-option *ngFor="let r of reservations" [value]="r.id">
             Id: {{r.id}}, Start date: {{r.startDate}}, End date: {{r.endDate}}, Customer: {{r.customer}}
           </mat-option>
         </mat-select>
-      </mat-form-field>
+      </mat-form-field>-->
     </div>
 
-    <button mat-flat-button color="accent" type="submit" [disabled]="!billForm.valid || submitClicked">Speichern
+    <button mat-flat-button color="accent" type="submit" [disabled]="submitClicked">Speichern
       <mat-progress-spinner *ngIf="submitClicked"
           class="example-margin"
           [color]="color"
