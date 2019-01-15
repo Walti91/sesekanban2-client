@@ -39,7 +39,7 @@ export class BillComponent implements OnInit {
   }
 
   exitOverdue() {
-    this.billService.getAllBills().subscribe(bills => this.allBills = bills);
+    this.fetchBills()
     this.overdue=false;
   }
 
@@ -48,6 +48,14 @@ export class BillComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(this.router.url === '/bills/overdue')
+      this.overdueBill();
+
+    else
+      this.fetchBills();
+  }
+
+  fetchBills() {
     this.billService.getAllBills().subscribe(bills => this.allBills = bills);
   }
 

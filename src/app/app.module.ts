@@ -50,6 +50,7 @@ const appRoutes: Routes = [
   { path: 'reservations/detail/:id', component: ReservationDetailComponent },
   { path: 'reservation/add', component: ReservationAddComponent },
   { path: 'bills', component: BillComponent },
+  { path: 'bills/overdue', component: BillComponent },
   { path: 'bills/add', component: BillAddComponent },
   { path: 'bills/detail/:id', component: BillDetailComponent },
   { path: 'rooms/timescale', component: RoomOverviewTimescaleComponent },

@@ -73,12 +73,12 @@
 <br>
 <h1>Überfällige Rechnungen</h1>
 
-<ng-template [ngIf]="overdueBills">
+<ng-template [ngIf]="!empty">
   <p>Es gibt überfällige Rechnungen!</p>
-  <button mat-raised-button color="warn" routerLink="/bills" >Zu den überfälligen Rechnungen</button>
+  <button mat-raised-button color="warn" routerLink="/bills/overdue" >Zu den überfälligen Rechnungen</button>
   <hr>
 </ng-template>
-<ng-template [ngIf]="!overdueBills">
+<ng-template [ngIf]="empty">
   <p>Es gibt keine überfälligen Rechnungen!</p>
   <hr>
 </ng-template>

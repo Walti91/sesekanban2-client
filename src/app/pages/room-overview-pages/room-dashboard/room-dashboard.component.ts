@@ -16,6 +16,8 @@ export class RoomDashboardComponent implements OnInit {
   startingReservations: Reservation[];
   endingReservations: Reservation[];
   overdueBills: Bill[];
+  empty: boolean =false;
+
 
   displayedColumns: String[] = ['Zimmer', 'Anzahl Erwachsene', 'Anzahl Kinder'];
 
@@ -28,6 +30,10 @@ export class RoomDashboardComponent implements OnInit {
     });
     this.billService.getOverdueBills().subscribe(bills => {
            this.overdueBills = bills;
+
+           if (this.overdueBills.length===0)
+             this.empty=true;
+
     });
   }
 
