@@ -29,6 +29,10 @@ export class BillService {
     return this.http.get<Bill[]>(this.billBaseURL);
   }
 
+  getOverdueBills(): Observable<Bill[]> {
+    return this.http.get<Bill[]>(this.billBaseURL + '/overdue');
+  }
+
   addBill(bill: Bill): Observable<Bill> {
     return this.http.post<Bill>(this.billBaseURL, bill, this.httpOptions);
   }
