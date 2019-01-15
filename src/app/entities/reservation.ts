@@ -10,4 +10,5 @@ export class Reservation {
 
   customerId: number;
   roomReservations: RoomReservation[];
+  comments: Comment[];
 }

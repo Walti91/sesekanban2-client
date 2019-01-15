@@ -51,6 +51,14 @@ export class ReservationService {
     return this.http.get<Reservation>(this.reservationBaseURL + id);
   }
 
+  getTodaysStartingReservation(): Observable<Reservation[]> {
+    return this.http.get<Reservation[]>(this.reservationBaseURL + 'starting');
+  }
+
+  getTodaysEndingReservation(): Observable<Reservation[]> {
+    return this.http.get<Reservation[]>(this.reservationBaseURL + 'ending');
+  }
+
   extractData(res: Response) {
     const body = res.json();
     return body || {};

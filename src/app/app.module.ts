@@ -39,9 +39,10 @@ import { RoomOverviewTimescaleComponent } from './pages/room-overview-pages/room
 import { RoomTimescaleComponent } from './pages/room-overview-pages/room-overview-timescale/room-timescale/room-timescale.component';
 import { LogComponent } from './pages/log-pages/log/log.component';
 import { CustomerDetailComponent } from './pages/customer-pages/customer-detail/customer-detail.component';
+import { RoomDashboardComponent } from './pages/room-overview-pages/room-dashboard/room-dashboard.component';
 
 const appRoutes: Routes = [
-  { path: '', component: CustomerComponent},  // TODO: Change this to reservation-component since that would be probably the most used one.
+  { path: '', component: RoomDashboardComponent},  // TODO: Change this to reservation-component since that would be probably the most used one.
   { path: 'customers', component: CustomerComponent },
   { path: 'reservations', component: ReservationComponent },
   { path: 'customers/add', component: CustomerAddComponent },
@@ -53,6 +54,7 @@ const appRoutes: Routes = [
   { path: 'rooms/timescale', component: RoomOverviewTimescaleComponent },
   { path: 'logs', component: LogComponent },
   { path: 'customers/detail/:id', component: CustomerDetailComponent },
+  { path: 'dashboard', component: RoomDashboardComponent },
   { path: '**', redirectTo: '/'}
 ];
 
@@ -71,6 +73,7 @@ const appRoutes: Routes = [
     RoomTimescaleComponent,
     LogComponent,
     CustomerDetailComponent,
+    RoomDashboardComponent,
   ],
   imports: [
     RouterModule.forRoot(
