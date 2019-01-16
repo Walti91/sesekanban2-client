@@ -31,34 +31,44 @@ export class ReservationAddComponent implements OnInit {
   startDate = new FormControl('', [Validators.required]);
   endDate = new FormControl('', [Validators.required]);
   customerId = new FormControl('', [Validators.required]);
+
   roomId = new FormControl('', [Validators.required]);
   adults = new FormControl('', [Validators.required]);
   children = new FormControl('', [Validators.required]);
-  pension = new FormControl('', []);
+  pension = new FormControl('', [Validators.required]);
+  from = new FormControl('', [Validators.required]);
+  to = new FormControl('', [Validators.required]);
 
   roomReservations: RoomReservation[] = [];
 
-  displayedColumns = ['name', 'pension', 'adults', 'children'];
+  displayedColumns = ['name', 'pension', 'adults', 'children', 'from', 'to'];
   dataSource = new MatTableDataSource(this.roomReservations);
 
   isDisabled = true;
-  
+
   reservationForm: FormGroup = new FormGroup({
       startDate: this.startDate,
       endDate: this.endDate,
       customerId: this.customerId,
-      roomId: this.roomId,
-      adults: this.adults,
-      children: this.children,
-      pension: this.pension
     }
   );
+
+  roomReservationForm: FormGroup = new FormGroup({
+    roomId: this.roomId,
+    adults: this.adults,
+    children: this.children,
+    pension: this.pension,
+    from: this.from,
+    to: this.to
+  });
 
   customers: Customer[];
   rooms: Room[];
   room: Room;
   capacityAdults = 0;
   capacity = 0;
+  start: Date;
+  end: Date;
 
   ngOnInit() {
     this.customerService.getAllCustomers().subscribe(c => this.customers = c);
@@ -89,6 +99,8 @@ export class ReservationAddComponent implements OnInit {
   }
 
   checkDates() {
+    this.start = this.startDate.value;
+    this.end = this.endDate.value;
       this.isDisabled = this.startDate.value > this.endDate.value;
       if (!this.isDisabled) {
         this.roomService.getFreeRooms(this.startDate.value, this.endDate.value).subscribe(r => this.rooms = r);
@@ -121,9 +133,13 @@ export class ReservationAddComponent implements OnInit {
         roomReservation.adults = this.adults.value;
         roomReservation.children = this.children.value;
         roomReservation.pension = this.pension.value===''?'BREAKFAST':this.pension.value;
+        roomReservation.from = this.from.value;
+        roomReservation.to = this.to.value;
         this.roomReservations.push(roomReservation);
         this.dataSource = new MatTableDataSource<RoomReservation>(this.roomReservations);
         this.rooms.splice(this.rooms.indexOf(this.room), 1);
+        this.start = new Date(this.to.value);
+        this.start.setDate(this.start.getDate() + 1);
       }
     }
     

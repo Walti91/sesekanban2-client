@@ -22,7 +22,7 @@ export class ReservationDetailComponent implements OnInit, OnDestroy {
   private reservationId: number;
   private sub: Subscription;
 
-  displayedColumns: String[] = ['Id', 'Name', 'Kapazität', 'Kapazität Erwachsene', 'Preis Erwachsene', 'Preis Kinder', 'Erwachsene', 'Kinder', 'Pension'];
+  displayedColumns: String[] = ['Id', 'Name', 'Kapazität', 'Kapazität Erwachsene', 'Preis Erwachsene', 'Preis Kinder', 'Erwachsene', 'Kinder', 'Pension', 'Von', 'Bis'];
 
   commentForm: FormGroup = new FormGroup({
     comment: this.comment
@@ -32,13 +32,8 @@ export class ReservationDetailComponent implements OnInit, OnDestroy {
 
   }
 
-  getStartDate (startDate: string): String {
-    const myDate = new Date(startDate);
-    return myDate.toLocaleDateString('de');
-  }
-
-  getEndDate (endeDate: string): String {
-    const myDate = new Date(endeDate);
+  getLocalDateString (dateString: string): String {
+    const myDate = new Date(dateString);
     return myDate.toLocaleDateString('de');
   }
 

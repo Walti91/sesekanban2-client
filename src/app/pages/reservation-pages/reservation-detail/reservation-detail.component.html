@@ -13,11 +13,11 @@
     </tr>
     <tr>
       <td><b>Start Datum: </b></td>
-      <td>{{getStartDate(reservation.startDate)}}</td>
+      <td>{{getLocalDateString(reservation.startDate)}}</td>
     </tr>
     <tr>
       <td><b>End Datum: </b></td>
-      <td>{{getEndDate(reservation.endDate)}}</td>
+      <td>{{getLocalDateString(reservation.endDate)}}</td>
     </tr>
   </table>
 
@@ -68,6 +68,16 @@
     <ng-container matColumnDef="Pension">
       <mat-header-cell *matHeaderCellDef> Pension </mat-header-cell>
       <mat-cell *matCellDef="let roomReservation"> {{roomReservation.pension}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Von">
+      <mat-header-cell *matHeaderCellDef> Von </mat-header-cell>
+      <mat-cell *matCellDef="let roomReservation"> {{getLocalDateString(roomReservation.from)}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Bis">
+      <mat-header-cell *matHeaderCellDef> Bis </mat-header-cell>
+      <mat-cell *matCellDef="let roomReservation"> {{getLocalDateString(roomReservation.to)}} </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
