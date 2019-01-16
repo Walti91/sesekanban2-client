@@ -109,7 +109,7 @@
 
             <mat-form-field>
               <input matInput [matDatepicker]="fromDatePicker" placeholder="Von" formControlName="from" [min]="start"
-                     [max]="start">
+                     [max]="end">
               <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
               <mat-datepicker #fromDatePicker></mat-datepicker>
             </mat-form-field>
@@ -123,7 +123,7 @@
 
             <mat-action-row>
             <button mat-flat-button color="accent" type="button"
-                    [disabled]="!roomId.valid || !adults.valid || !children.valid || !from.valid || !to.valid"
+                    [disabled]="!roomId.valid || !adults.valid || !children.valid || !from.valid || !to.valid || from.value > to.value"
                     (click)="addRoomReservation()">Hinzufügen
             </button>
 

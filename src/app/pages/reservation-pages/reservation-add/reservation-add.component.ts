@@ -138,8 +138,6 @@ export class ReservationAddComponent implements OnInit {
         this.roomReservations.push(roomReservation);
         this.dataSource = new MatTableDataSource<RoomReservation>(this.roomReservations);
         this.rooms.splice(this.rooms.indexOf(this.room), 1);
-        this.start = new Date(this.to.value);
-        this.start.setDate(this.start.getDate() + 1);
       }
     }
     
