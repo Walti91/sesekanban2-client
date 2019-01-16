@@ -7,6 +7,8 @@ export class RoomReservation {
   children: number;
   room: Room;
   pension: string;
+  from: Date;
+  to: Date;
 
   roomId: number;
   name: string;
