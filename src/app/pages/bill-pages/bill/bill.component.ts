@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {MatIconRegistry} from '@angular/material';
+import {MatIconRegistry, MatSnackBar} from '@angular/material';
 import {DomSanitizer} from '@angular/platform-browser';
 import {Reservation} from '../../../entities/reservation';
 import {Bill} from '../../../entities/bill';
@@ -21,7 +21,8 @@ export class BillComponent implements OnInit {
   displayedColumnsReminder: String[] = ['Timestamp','EmailSent'];
   overdue: boolean = false;
 
-  constructor(private billService: BillService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, private router: Router) {
+  constructor(private billService: BillService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer, private router: Router,
+              public snackBar: MatSnackBar) {
     iconRegistry.addSvgIcon('add', sanitizer.bypassSecurityTrustResourceUrl('assets/baseline-add-24px.svg'));
   }
 
@@ -51,9 +52,14 @@ export class BillComponent implements OnInit {
     this.billService.getAllBills().subscribe(bills => this.allBills = bills);
   }
 
-  openDetailForBill(row: Reservation) {
-    console.log(row.id);
+  openDetailForBill(row: any) {
+    console.log(row.reservations);
 
-    this.router.navigate(['bills', 'detail', row.id], {skipLocationChange: false});
+    if (row.reservations.length > 0) {
+      this.router.navigate(['bills', 'detail', row.id], {skipLocationChange: false});
+    } else {
+      this.snackBar.open('Diese Rechnung kann nicht geöffnet werden, da für sie keine Reservierung mehr existiert!',
+        null, { duration: 3000 });
+    }
   }
 }
