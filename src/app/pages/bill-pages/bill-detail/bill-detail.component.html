@@ -19,11 +19,21 @@
         *ngFor="let room of r.roomReservations">{{room.room.name}}, </span></span></td>
     </tr>
     <tr>
-      <td><b>Rabatt: </b></td>
-      <td>{{bill.reservations[0].customer.discount}}%</td>
+      <td><b>Rabatt (%): </b></td>
+      <td> 
+        <form (ngSubmit)="updateBillDiscount()" [formGroup]="discountForm">
+            <div class="form-group">
+              <mat-form-field>
+                <input matInput placeholder="{{bill.discount}}" formControlName="discount">
+              </mat-form-field>
+              <button mat-flat-button color="accent" type="submit">Aktualisieren</button>
+            </div>
+        </form>
+      </td>
+        
     </tr>
     <tr>
-      <td><b>Preis: </b></td>
+      <td><b>Preis (€): </b></td>
       <td>{{bill.amount}}</td>
     </tr>
     <tr>
@@ -32,7 +42,14 @@
     </tr>
     <tr>
       <td><b>Storniert: </b></td>
-      <td>{{bill.cancelled}}</td>
+      <td>
+        <ng-template [ngIf]="!bill.cancelled">
+          false
+        </ng-template>
+        <ng-template [ngIf]="bill.cancelled">
+          email sent
+        </ng-template>
+      </td>
     </tr>
     <tr>
       <td><b>Mahnungen: </b></td>
@@ -40,7 +57,11 @@
     </tr>
   </table>
   <div>
-    <button mat-raised-button color="accent" (click)="sendPaymentConfirmation()">Zahlungsbestätigung senden</button>
+    <b>Zahlungen:</b>
+    <div *ngFor="let p of bill.payments">
+      Payment id: {{p.id}}, Amount: {{p.value}}
+      <button [disabled]="p.emailSent" mat-raised-button color="accent" (click)="sendPaymentConfirmation(p.id)">{{p.emailSent? 'Zahlungsbestätigung gesendet':'Zahlungsbestätigung senden'}}</button>
+    </div>
   </div>
   <div>
     <button mat-raised-button color="warn" (click)="sendReminder()">Mahnung senden</button>
@@ -50,6 +71,17 @@
     <div *ngIf="reminderSent === 'false'">
       Beim versenden der Mahnung ist ein Fehler aufgetreten!
     </div>
+  </div>
+
+  <div>
+    <ng-template [ngIf]="!bill.cancelled">
+      <button mat-raised-button color="warn" (click)="cancelBill()">Stornieren</button>
+    </ng-template>
+  </div>
+
+
+  <div>
+    <button mat-raised-button (click)="getPdf()">Rechnungs-PDF herunterladen</button>
   </div>
 </div>
 

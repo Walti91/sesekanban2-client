@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {Comment} from '../entities/comment';
 // import {Observable} from 'rxjs/index';
 import {Reservation} from '../entities/reservation';
@@ -49,6 +49,18 @@ export class ReservationService {
 
   getReservationById(id: number): Observable<Reservation> {
     return this.http.get<Reservation>(this.reservationBaseURL + id);
+  }
+
+  getTodaysStartingReservation(): Observable<Reservation[]> {
+    return this.http.get<Reservation[]>(this.reservationBaseURL + 'starting');
+  }
+
+  getTodaysEndingReservation(): Observable<Reservation[]> {
+    return this.http.get<Reservation[]>(this.reservationBaseURL + 'ending');
+  }
+
+  deleteReservation(reservationId: number): Observable<Object> {
+    return this.http.delete(this.reservationBaseURL + reservationId + '/delete', this.httpOptions);
   }
 
   extractData(res: Response) {

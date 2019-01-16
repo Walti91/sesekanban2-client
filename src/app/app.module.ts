@@ -21,7 +21,9 @@ import {
   MAT_DATE_LOCALE,
   MatSelectModule,
   MatExpansionModule,
-  MatCardModule
+  MatCardModule, MatSortModule,
+  MatProgressSpinnerModule,
+  MatCheckboxModule, MatSnackBarModule, MatDialogModule
 } from '@angular/material';
 import { CustomerComponent } from './pages/customer-pages/customer/customer.component';
 import {RouterModule, Routes} from '@angular/router';
@@ -34,17 +36,27 @@ import { ReservationAddComponent } from './pages/reservation-pages/reservation-a
 import { BillComponent } from './pages/bill-pages/bill/bill.component';
 import { BillAddComponent } from './pages/bill-pages/bill-add/bill-add.component';
 import { BillDetailComponent } from './pages/bill-pages/bill-detail/bill-detail.component';
+import { RoomOverviewTimescaleComponent } from './pages/room-overview-pages/room-overview-timescale/room-overview-timescale.component';
+import { RoomTimescaleComponent } from './pages/room-overview-pages/room-overview-timescale/room-timescale/room-timescale.component';
+import { LogComponent } from './pages/log-pages/log/log.component';
+import { CustomerDetailComponent } from './pages/customer-pages/customer-detail/customer-detail.component';
+import { RoomDashboardComponent } from './pages/room-overview-pages/room-dashboard/room-dashboard.component';
 
 const appRoutes: Routes = [
-  { path: '', component: CustomerComponent},  // TODO: Change this to reservation-component since that would be probably the most used one.
+  { path: '', component: RoomDashboardComponent},  // TODO: Change this to reservation-component since that would be probably the most used one.
   { path: 'customers', component: CustomerComponent },
   { path: 'reservations', component: ReservationComponent },
   { path: 'customers/add', component: CustomerAddComponent },
   { path: 'reservations/detail/:id', component: ReservationDetailComponent },
   { path: 'reservation/add', component: ReservationAddComponent },
   { path: 'bills', component: BillComponent },
+  { path: 'bills/overdue', component: BillComponent },
   { path: 'bills/add', component: BillAddComponent },
   { path: 'bills/detail/:id', component: BillDetailComponent },
+  { path: 'rooms/timescale', component: RoomOverviewTimescaleComponent },
+  { path: 'logs', component: LogComponent },
+  { path: 'customers/detail/:id', component: CustomerDetailComponent },
+  { path: 'dashboard', component: RoomDashboardComponent },
   { path: '**', redirectTo: '/'}
 ];
 
@@ -59,6 +71,11 @@ const appRoutes: Routes = [
     ReservationComponent,
     ReservationAddComponent,
     BillDetailComponent,
+    RoomOverviewTimescaleComponent,
+    RoomTimescaleComponent,
+    LogComponent,
+    CustomerDetailComponent,
+    RoomDashboardComponent,
   ],
   imports: [
     RouterModule.forRoot(
@@ -85,7 +102,12 @@ const appRoutes: Routes = [
     MatSelectModule,
     HttpClientModule,
     MatExpansionModule,
-    MatCardModule
+    MatCardModule,
+    MatSortModule,
+    MatProgressSpinnerModule,
+    MatCheckboxModule,
+    MatSnackBarModule,
+    MatDialogModule
   ],
   providers: [{provide: MAT_DATE_LOCALE, useValue: 'de-DE'}],
   bootstrap: [AppComponent]

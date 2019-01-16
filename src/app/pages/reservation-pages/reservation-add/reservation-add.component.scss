@@ -7,3 +7,25 @@
 mat-form-field {
   width: 30%;
 }
+
+a {
+  margin-left: 8px;
+  position: absolute;
+}
+  
+.saveButton {
+  margin-top: 16px;
+  margin-bottom: 24px;
+}
+
+.warning {
+  color: red;
+}
+
+.formTableSpace {
+  padding-top: 24px
+}
+
+.formTableSpace mat-form-field {
+  padding: 5px;
+}

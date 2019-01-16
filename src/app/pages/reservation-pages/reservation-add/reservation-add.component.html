@@ -4,7 +4,8 @@
 
     <div class="form-group">
       <mat-form-field>
-        <input matInput [matDatepicker]="startDatePicker" placeholder="Startdatum" formControlName="startDate" (dateChange)="checkDates()" required>
+        <input matInput [matDatepicker]="startDatePicker" placeholder="Startdatum" formControlName="startDate"
+               (dateChange)="checkDates()" required>
         <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
         <mat-datepicker #startDatePicker></mat-datepicker>
       </mat-form-field>
@@ -12,7 +13,8 @@
 
     <div class="form-group">
       <mat-form-field>
-        <input matInput [matDatepicker]="endDatePicker" placeholder="Enddatum" formControlName="endDate" (dateChange)="checkDates()" required>
+        <input matInput [matDatepicker]="endDatePicker" placeholder="Enddatum" formControlName="endDate"
+               (dateChange)="checkDates()" required>
         <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
         <mat-datepicker #endDatePicker></mat-datepicker>
       </mat-form-field>
@@ -26,62 +28,119 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
+      <a mat-raised-button (click)="createCustomer()">+</a>
     </div>
 
     <div class="form-group">
       <mat-expansion-panel [disabled]="isDisabled">
         <mat-expansion-panel-header>
           <mat-panel-title>
-            Zimmer
           </mat-panel-title>
-          <mat-panel-description>
-            Bitte Zimmer eintragen
-          </mat-panel-description>
+          <mat-panel-title *ngIf="roomReservations.length == 0" class="panel-title">
+            Um Zimmer hinzuzufügen, hier klicken
+          </mat-panel-title>
         </mat-expansion-panel-header>
 
         <mat-table [dataSource]="dataSource" class="mat-elevation-z8" dense="true" flexsy>
 
           <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-            <mat-cell *matCellDef="let roomReservation"> {{roomReservation.name}} </mat-cell>
+            <mat-header-cell *matHeaderCellDef> Name</mat-header-cell>
+            <mat-cell *matCellDef="let roomReservation"> {{roomReservation.name}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="pension">
+            <mat-header-cell *matHeaderCellDef> Pension</mat-header-cell>
+            <mat-cell *matCellDef="let roomReservation"> {{roomReservation.pension}}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="adults">
-            <mat-header-cell *matHeaderCellDef> Erwachsene </mat-header-cell>
-            <mat-cell *matCellDef="let roomReservation"> {{roomReservation.adults}} </mat-cell>
+            <mat-header-cell *matHeaderCellDef> Erwachsene</mat-header-cell>
+            <mat-cell *matCellDef="let roomReservation"> {{roomReservation.adults}}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="children">
-            <mat-header-cell *matHeaderCellDef> Kinder </mat-header-cell>
-            <mat-cell *matCellDef="let roomReservation"> {{roomReservation.children}} </mat-cell>
+            <mat-header-cell *matHeaderCellDef> Kinder</mat-header-cell>
+            <mat-cell *matCellDef="let roomReservation"> {{roomReservation.children}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="from">
+            <mat-header-cell *matHeaderCellDef> Von</mat-header-cell>
+            <mat-cell *matCellDef="let roomReservation"> {{roomReservation.from.toLocaleDateString()}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="to">
+            <mat-header-cell *matHeaderCellDef> Bis</mat-header-cell>
+            <mat-cell *matCellDef="let roomReservation"> {{roomReservation.to.toLocaleDateString()}}</mat-cell>
           </ng-container>
 
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
           <mat-row *matRowDef="let roomReservation; columns: displayedColumns;"></mat-row>
         </mat-table>
 
-        <mat-action-row>
-        <mat-form-field>
-          <mat-select placeholder="Zimmer" formControlName="roomId" (selectionChange)="updateRoom()" required>
-            <mat-option *ngFor="let r of rooms" [value]="r.id">
-              {{r.name}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+        <div class="formTableSpace">
+          <ng-form [formGroup]="roomReservationForm">
+            <mat-form-field>
+              <mat-select placeholder="Zimmer" formControlName="roomId" (selectionChange)="updateRoom()" required>
+                <mat-option *ngFor="let r of rooms" [value]="r.id">
+                  {{r.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
 
-        <mat-form-field>
-          <input matInput type="number" placeholder="Erwachsene (max {{capacityAdults}})" formControlName="adults" required>
-        </mat-form-field>
+            <mat-form-field>
+              <mat-select placeholder="BREAKFAST" formControlName="pension">
+                <mat-option value="FULL">FULL</mat-option>
+                <mat-option value="HALF">HALF</mat-option>
+                <mat-option default value="BREAKFAST">BREAKFAST</mat-option>
+              </mat-select>
+            </mat-form-field>
 
-        <mat-form-field>
-          <input matInput type="number" placeholder="Kinder (max {{capcityChildren}})" formControlName="children" required>
-        </mat-form-field>
+            <mat-form-field>
+              <input matInput type="number" [class.warning]="adults.value > capacityAdults"
+                     [placeholder]="adults.value > capacityAdults || adults.value < 0 ? 'Anzahl ungültig' : 'Erwachsene (max ' + capacityAdults + ')'"
+                     formControlName="adults" required>
+            </mat-form-field>
 
-         <button mat-flat-button color="accent" type="button" [disabled]="!roomId.valid || !adults.valid || !children.valid" (click)="addRoomReservation()">Hinzufügen</button>
+            <mat-form-field>
+              <input matInput type="number" [class.warning]="children.value > capacity"
+                     [placeholder]="children.value > capacity || children.value > capacity-adults.value || children.value < 0? 'Anzahl ungültig' : 'Kinder (max ' + (capacity >= 0?adults.value >= 0?(capacity-adults.value):capacity:0) + ')'"
+                     formControlName="children" required>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput [matDatepicker]="fromDatePicker" placeholder="Von" formControlName="from" [min]="start"
+                     [max]="end">
+              <mat-datepicker-toggle matSuffix [for]="fromDatePicker"></mat-datepicker-toggle>
+              <mat-datepicker #fromDatePicker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field>
+              <input matInput [matDatepicker]="toDatePicker" placeholder="Bis" formControlName="to" [min]="start"
+                     [max]="end">
+              <mat-datepicker-toggle matSuffix [for]="toDatePicker"></mat-datepicker-toggle>
+              <mat-datepicker #toDatePicker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-action-row>
+            <button mat-flat-button color="accent" type="button"
+                    [disabled]="!roomId.valid || !adults.valid || !children.valid || !from.valid || !to.valid || from.value > to.value"
+                    (click)="addRoomReservation()">Hinzufügen
+            </button>
+
         </mat-action-row>
+          </ng-form>
+        </div>
       </mat-expansion-panel>
     </div>
 
-    <button mat-flat-button color="accent" type="submit" [disabled]="!reservationForm.valid">Speichern</button>
+    <button mat-flat-button class="saveButton" color="accent" type="submit"
+            [disabled]="!reservationForm.valid || roomReservations.length === 0">Speichern
+      <mat-progress-spinner *ngIf="submitClicked"
+                            class="example-margin"
+                            [color]="color"
+                            [mode]="mode"
+                            [value]="value">
+      </mat-progress-spinner>
+    </button>
   </form>
 </div>

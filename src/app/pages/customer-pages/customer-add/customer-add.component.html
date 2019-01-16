@@ -75,7 +75,13 @@
       </mat-form-field>
     </div>
 
-    <button mat-flat-button color="accent" type="submit" [disabled]="!customerForm.valid">Speichern</button>
-    <!--<mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
+    <button mat-flat-button color="accent" type="submit" class="saveButton" [disabled]="!customerForm.valid || submitClicked">Speichern
+      <mat-progress-spinner *ngIf="submitClicked"
+          class="example-margin"
+          [color]="color"
+          [mode]="mode"
+          [value]="value">
+      </mat-progress-spinner>
+    </button>
   </form>
 </div>

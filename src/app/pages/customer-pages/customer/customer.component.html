@@ -1,3 +1,7 @@
+<h2>
+  Kunden
+</h2>
+
 <mat-table [dataSource]="allCustomers" class="mat-elevation-z8" dense="true" flexsy>
 
   <ng-container matColumnDef="Id">
@@ -37,7 +41,7 @@
 
   <ng-container matColumnDef="Rabatt">
     <mat-header-cell *matHeaderCellDef> Rabatt </mat-header-cell>
-    <mat-cell *matCellDef="let customer"> {{customer.discount}} </mat-cell>
+    <mat-cell *matCellDef="let customer"> {{customer.discount}}% </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="Telefonnummer">
@@ -50,18 +54,19 @@
     <mat-cell *matCellDef="let customer"> {{customer.email}} </mat-cell>
   </ng-container>
 
-  <ng-container matColumnDef="Web">
+  <!-- <ng-container matColumnDef="Web">
     <mat-header-cell *matHeaderCellDef> Web </mat-header-cell>
     <mat-cell *matCellDef="let customer"> {{customer.web}} </mat-cell>
-  </ng-container>
+  </ng-container> -->
 
+  <!--
   <ng-container matColumnDef="Fax">
     <mat-header-cell *matHeaderCellDef> Fax </mat-header-cell>
     <mat-cell *matCellDef="let customer"> {{customer.fax}} </mat-cell>
-  </ng-container>
+  </ng-container> -->
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openDetailForCustomer(row)"></mat-row>
 </mat-table>
 
 

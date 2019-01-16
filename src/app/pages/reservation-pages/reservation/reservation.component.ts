@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import {MatIconRegistry} from '@angular/material';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatDialog, MatIconRegistry, MatSnackBar, MatSort, MatTableDataSource} from '@angular/material';
 import {DomSanitizer} from '@angular/platform-browser';
 import {Reservation} from '../../../entities/reservation';
 import {ReservationService} from '../../../services/reservation.service';
-import {FormControl, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
+import {Observable} from 'rxjs';
+import {BillService} from '../../../services/bill.service';
+import {Bill} from '../../../entities/bill';
 
 @Component({
   selector: 'app-reservation',
@@ -13,18 +15,26 @@ import {Router} from '@angular/router';
 })
 export class ReservationComponent implements OnInit {
 
-  allReservations: Reservation[];
-  displayedColumns: String[] = ['Id', 'Start Datum', 'End Datum', 'Kunde', 'Zimmer'];
+  @ViewChild(MatSort) sort: MatSort;
+
+  allReservations = new MatTableDataSource([] as Reservation[]);
+  displayedColumns: String[] = ['Id', 'startDate', 'End Datum', 'Kunde', 'Zimmer', 'actions'];
+
+  private clickedAction = false;
 
   constructor(private reservationService: ReservationService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer,
-              private router: Router) {
+              private router: Router, private billService: BillService,
+              public snackBar: MatSnackBar, public dialog: MatDialog) {
     iconRegistry.addSvgIcon('add', sanitizer.bypassSecurityTrustResourceUrl('assets/baseline-add-24px.svg'));
   }
 
   onSearchChange(searchValue: string ) {
 
     if (searchValue != null) {
-      this.reservationService.getReservationsByKeyword(searchValue).subscribe(reservations => this.allReservations = reservations);
+      this.reservationService.getReservationsByKeyword(searchValue).subscribe(reservations => {
+        this.allReservations.sort = this.sort;
+        this.allReservations.data = reservations;
+      });
     }
 
   }
@@ -44,12 +54,60 @@ export class ReservationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.reservationService.getAllReservations().subscribe(reservations => this.allReservations = reservations);
+    this.reservationService.getAllReservations().subscribe(reservations => {
+      this.allReservations.sort = this.sort;
+      this.allReservations.data = reservations;
+    });
   }
 
   openDetailForReservation(row: Reservation) {
-    console.log(row.id);
+    if (!this.clickedAction) {
+      console.log(row.id);
+      this.router.navigate(['reservations', 'detail', row.id], {skipLocationChange: false});
+    } else {
+      this.clickedAction = false;
+    }
+  }
 
-    this.router.navigate(['reservations', 'detail', row.id], {skipLocationChange: false});
+  createBill(row: Reservation) {
+    this.clickedAction = true;
+
+    const bill: Bill = new Bill();
+    bill.reservationIds = [row.id];
+
+    const result: Observable<Bill> = this.billService.addBill(bill);
+
+    // Create observer object
+    const myObserver = {
+      next: x => console.log('Observer got a next value: ' + x),
+      error: err => console.error('Observer got an error: ' + err),
+      complete: () => {
+        this.snackBar.open('Die Rechnung für die Reservierung mit der Id ' + row.id + ' wurde erfolgreich erstellt!',
+          null, { duration: 3000 });
+        this.ngOnInit();
+      }
+    };
+
+    result.subscribe(myObserver);
+  }
+
+  deleteReservation(row: Reservation) {
+    this.clickedAction = true;
+
+    // Create observer object
+    const myObserver = {
+      next: x => console.log('Observer got a next value: ' + x),
+      error: err => console.error('Observer got an error: ' + err),
+      complete: () => {
+        this.snackBar.open('Die Reservierung mit der Id ' + row.id + ' wurde erfolgreich gelöscht!',
+          null, { duration: 3000 });
+        this.ngOnInit();
+      }
+    };
+
+    if (confirm('Wollen Sie die Reservierung mit der Id ' + row.id + ' wirklich löschen?')) {
+      const result: Observable<Object> = this.reservationService.deleteReservation(row.id);
+      result.subscribe(myObserver);
+    }
   }
 }
