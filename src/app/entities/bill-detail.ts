@@ -8,6 +8,7 @@ export class BillDetail {
   reservations: Reservation[];
   payments: Payment[];
   reminders: Reminder[];
+  discount: number;
 
   amount: number;
 }

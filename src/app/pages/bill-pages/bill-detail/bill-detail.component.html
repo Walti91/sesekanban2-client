@@ -19,11 +19,21 @@
         *ngFor="let room of r.roomReservations">{{room.room.name}}, </span></span></td>
     </tr>
     <tr>
-      <td><b>Rabatt: </b></td>
-      <td>{{bill.reservations[0].customer.discount}}%</td>
+      <td><b>Rabatt (%): </b></td>
+      <td> 
+        <form (ngSubmit)="updateBillDiscount()" [formGroup]="discountForm">
+            <div class="form-group">
+              <mat-form-field>
+                <input matInput placeholder="{{bill.discount}}" formControlName="discount">
+              </mat-form-field>
+              <button mat-flat-button color="accent" type="submit">Aktualisieren</button>
+            </div>
+        </form>
+      </td>
+        
     </tr>
     <tr>
-      <td><b>Preis: </b></td>
+      <td><b>Preis ($): </b></td>
       <td>{{bill.amount}}</td>
     </tr>
     <tr>

@@ -55,14 +55,6 @@
         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 
       </mat-table>
-
-      <!--<mat-form-field>
-        <mat-select placeholder="Reservierung" formControlName="reservationIds" multiple required>
-          <mat-option *ngFor="let r of reservations" [value]="r.id">
-            Id: {{r.id}}, Start date: {{r.startDate}}, End date: {{r.endDate}}, Customer: {{r.customer}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>-->
     </div>
 
     <button mat-flat-button color="accent" type="submit" [disabled]="submitClicked">Speichern

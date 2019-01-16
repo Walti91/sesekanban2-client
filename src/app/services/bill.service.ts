@@ -55,6 +55,10 @@ export class BillService {
     return this.http.put<BillDetail>(this.billBaseURL + id + '/storno', this.httpOptions);
   }
 
+  updateBillDiscount(id: number,discount: number): Observable<BillDetail> {
+    return this.http.put<BillDetail>(this.billBaseURL + id + '/rabatt/'+discount, this.httpOptions);
+  }
+
   extractData(res: Response) {
     const body = res.json();
     return body || {};
